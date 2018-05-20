@@ -1,0 +1,70 @@
+#include <iostream>
+#include <cstdlib>
+#include <algorithm>
+#include <cmath>
+#include <vector>
+
+using namespace std;
+
+double calc_area(int time, int v_max, double v_begin, double v_end, double *area){
+  double area_t;
+  double ret_v_end;
+  if(v_end >= v_max){
+    if(v_max - v_begin <= time){
+      ret_v_end = v_max;
+      area_t = (v_begin + v_max) * (v_max - v_begin) / 2.0 + v_max * (time - (v_max - v_begin));
+    } else {
+      ret_v_end = v_begin + time;
+      area_t = (v_begin + v_begin + time) * time / 2.0;
+    }
+  }
+  else if(v_end <= v_max){
+    int max_time_begin = v_max - v_begin;
+    int max_time_end = v_max - v_end;
+    if(max_time_begin + max_time_end <= time){
+      ret_v_end = v_end;
+      area_t = (v_begin + v_max) * max_time_begin / 2.0	+ v_max * (time - max_time_begin - max_time_end) + (v_max + v_end) * max_time_end / 2.0;
+    } else {
+      int t_diff = abs(v_begin - v_end);
+      double t = (time - t_diff) / 2.0;
+      ret_v_end = v_end;
+      if(v_begin <= v_end){
+	area_t = (v_begin + v_begin + t + t_diff) * (t + t_diff) / 2.0 + (v_end + t + v_end) * t / 2.0;
+      } else {
+	area_t = (v_begin + v_begin + t) * t / 2.0 + (v_end + t + t_diff + v_end) * (t + t_diff) / 2.0;
+      }
+    }
+  }
+
+  *area += area_t;
+  return ret_v_end;
+}
+
+int main(){
+  int N;
+  vector<int> t(N), v(N);
+  double area = 0.0;
+  cin >> N;
+  for(int i=0; i<N; i++){
+    int t_;
+    cin >> t_;
+    t.push_back(t_);
+  }
+  for(int i=0; i<N; i++){
+    int v_;
+    cin >> v_;
+    v.push_back(v_);
+  }
+
+  double v_begin = 0, v_end;
+  for(int i=0; i<N; i++){
+    if(i == N-1) v_end = 0;
+    else v_end = v[i+1];
+    v_begin = calc_area(t[i], v[i], v_begin, v_end, &area);
+  }
+
+  cout << fixed << area << endl;
+
+  return 0;
+}
+
