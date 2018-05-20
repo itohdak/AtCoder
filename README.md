@@ -1,4 +1,5 @@
 # Sources for AtCoder programming contests
 ## Links
-- [AtCoder]<https://atcoder.jp/?lang=ja>
-- [AtCoder Problems]<https://kenkoooo.com/atcoder/?user=itohdak&rivals=&kind=category>
+- <https://atcoder.jp/?lang=ja "AtCoder Home">
+- <https://kenkoooo.com/atcoder/?user=itohdak&rivals=&kind=category "AtCoder Problems">
+- <https://atcoder.jp/user/itohdak "itohdak Profile">
