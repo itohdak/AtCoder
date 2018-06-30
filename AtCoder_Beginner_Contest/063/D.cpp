@@ -9,8 +9,6 @@ using namespace std;
 #define ll long long
 
 int main(){
-  int N;
-  cin >> N;
   return 0;
 }
 
