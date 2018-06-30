@@ -25,7 +25,10 @@ int main(){
       break;
     }
   if(sum % 10 == 0)
-    cout << sum - tmp << endl;
+    if(tmp == 0)
+      cout << 0 << endl;
+    else
+      cout << sum - tmp << endl;
   else
     cout << sum << endl;
   return 0;
