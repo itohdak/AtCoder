@@ -1,4 +1,12 @@
-// 素数か否か
+#include <iostream>
+#include <cmath>
+#include <vector>
+using namespace std;
+#define ll long long
+
+/*
+  素数か否か
+*/
 bool is_prime(const unsigned n){
   switch(n){
   case 0: // fall-through
@@ -21,4 +29,75 @@ bool is_prime(const unsigned n){
   }
 
   return true;
+}
+
+
+/*
+  エラトステネスの篩
+*/
+bool arr[1000000000];
+vector<ll> primes;
+void Eratosthenes(int N) {
+  for(int i=0; i<N; i++) {
+    arr[i] = true;
+  }
+  for(int i=2; i<sqrt(N); i++) {
+    if(arr[i]) {
+      for(int j=0; i*(j+2)<N; j++) {
+	arr[i*(j+2)] = false;
+      }
+    }
+  }
+
+  for(int i=2; i<N; i++) {
+    if(arr[i]) {
+      primes.push_back(i);
+    }
+  }
+}
+
+
+/*
+  素因数分解
+*/
+struct data {
+  ll prime;
+  int power;
+  data(ll prime, int power) : prime(prime), power(power) {}
+};
+vector<data> result;
+void factorization(ll N) {
+  if(N == 1 || N == 0) return;
+
+  bool first = true;
+  int n = N;
+  while(n % 2 == 0) {
+    if(first) {
+      result.push_back(data(2LL, 1));
+      first = false;
+    } else {
+      result[result.size()-1].power++;
+    }
+    n /= 2;
+  }
+  first = true;
+
+  for(ll i=3; i<ceil(sqrt(N)); i+=2) {
+    while(n % i == 0) {
+      if(first) {
+	result.push_back(data(i, 1));
+	first = false;
+      } else {
+	result[result.size()-1].power++;
+      }
+      n /= i;
+    }
+    first = true;
+  }
+
+  if(n != 1) {
+    result.push_back(data(n, 1));
+  }
+
+  return;
 }
