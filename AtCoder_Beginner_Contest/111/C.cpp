@@ -31,11 +31,15 @@ int main(){
       m_even = M_even;
       M_even = A[i];
       i_even = i;
+    } else if(A[i] > m_even) {
+      m_even = A[i];
     }
     if(B[i] > M_odd) {
       m_odd = M_odd;
       M_odd = B[i];
       i_odd = i;
+    } else if(B[i] > m_odd) {
+      m_odd = B[i];
     }
   }
   if(i_even == i_odd)
