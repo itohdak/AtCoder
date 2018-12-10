@@ -52,50 +52,42 @@ void factorization(ll N) {
   return;
 }
 
-// int MAX_R = 100050;
-// int MAX_C = 50;
-// vector<vector<ll> > v(MAX_R, vector<ll>(MAX_C, 0LL));
-// void prep_comb(ll mod = MOD) {
-//   for(int i=0; i<MAX_C; i++) {
-//     v[i][0] = 1;
-//     v[i][i] = 1;
-//   }
-//   for(int k=1; k<v.size(); k++) {
-//     for(int j=1; j<min(MAX_C, k); j++) {
-//       v[k][j] = (v[k-1][j-1] + v[k-1][j]) % mod;
-//     }
-//   }
-// }
-// ll comb(int n, int r) {
-//   if(2*r > n) r = n-r;
-//   return v[n][r];
-// }
 
 #define N_MAX 30
-
-long inv[N_MAX],finv[N_MAX];
-
-long comb(long n, long r){
-  if(2*r > n) r = n-r;
-  long ans = 1;
-  for(int i = 0; i < r; i++){
-    ans = (ans*(n-i)%MOD)%MOD;
+ll fact[N_MAX]; // 階乗
+ll inv[N_MAX]; // 逆元
+ll power(ll x, int n) {
+  ll ans = 1;
+  while(n > 0) {
+    if((n & 1) == 1) {
+      ans = ans * x % MOD;
+    }
+    x = x * x % MOD;
+    n >>= 1;
   }
-  ans = (ans*finv[r])%MOD;
   return ans;
 }
-
-void make(){
-  finv[0]=finv[1]=1;
-  inv[1]=1;
-  for(int i=2;i<N_MAX;i++){
-    inv[i]=MOD-inv[MOD%i]*(MOD/i)%MOD;
-    finv[i]=finv[i-1]*inv[i]%MOD;
+void FermatCombination() {
+  fact[0] = 1;
+  inv[0] = 1;
+  for(int i=1; i<N_MAX; i++) {
+    fact[i] = (fact[i-1] * i) % MOD;
+    inv[i] = power(fact[i], (int)MOD-2) % MOD; // フェルマーの小定理の逆元
   }
 }
+ll comb(int n, int k) {
+  if(2*k > n) k = n-k;
+  ll ans = 1LL;
+  for(int i=0; i<k; i++) {
+    ans *= (n-i) % MOD;
+    ans %= MOD;
+  }
+  return ans * inv[k] % MOD; // フェルマーの小定理
+}
+
 
 int main(){
-  make();
+  FermatCombination();
 
   int N;
   ll M;
@@ -105,7 +97,6 @@ int main(){
 
   ll ans = 1;
   int n = N-1;
-  // prep_comb();
   for(int i=0; i<result.size(); i++) {
     int m = result[i].power + n;
     ans *= comb(m, n);
