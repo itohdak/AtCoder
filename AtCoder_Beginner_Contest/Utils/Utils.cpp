@@ -30,3 +30,4 @@ ll lcm(ll x, ll y) {
   ll g = gcd(x, y);
   return (x / g) * (y / g);
 }
+
