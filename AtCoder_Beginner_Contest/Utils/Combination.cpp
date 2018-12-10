@@ -23,10 +23,18 @@
 //     inv[i] = power(fact[i], (int)MOD-2) % MOD; // フェルマーの小定理の逆元
 //   }
 // }
-// ll combine(int n, int k) {
-//   return fact[n] * inv[k] % MOD * inv[n-k] % MOD; // フェルマーの小定理
+// ll comb(int n, int k) {
+//   if(2*k > n) k = n-k;
+//   ll ans = 1LL;
+//   for(int i=0; i<k; i++) {
+//     ans *= (n-i) % MOD;
+//     ans %= MOD;
+//   }
+//   return ans * inv[k] % MOD; // フェルマーの小定理
 // }
 
+// FermatCombination();
+// comb(n, k);
 // http://keita-matsushita.hatenablog.com/entry/2016/12/05/184011
 
 
