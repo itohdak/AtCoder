@@ -109,7 +109,7 @@ void factorization(ll N) {
 */
 vector<ll> divisor;
 void find_divisor(ll N) {
-  for(int i=1; i<ceil(sqrt(N))+1; i++) {
+  for(int i=1; i<=sqrt(N); i++) {
     if(N % i == 0)
       divisor.push_back(i);
   }

@@ -5,13 +5,13 @@ using namespace std;
 #define MAX_N 100000
 
 int par[MAX_N]; // 親の番号
-int rank[MAX_N];
+int depth[MAX_N];
 
 // n要素で初期化
 void init(int n){
   for(int i=0; i<n; i++){
     par[i] = i;
-    rank[i] = 0;
+    depth[i] = 0;
   }
 }
 // 木の根を求める
@@ -34,12 +34,12 @@ void unite(int x, int y){
   y = root(y);
   if(x == y) return;
 
-  if(rank[x] < rank[y]){
+  if(depth[x] < depth[y]){
     par[x] = y;
   } else {
     par[y] = x;
-    if(rank[x] == rank[y])
-      rank[x]++;
+    if(depth[x] == depth[y])
+      depth[x]++;
   }
 }
 
@@ -53,7 +53,7 @@ int main(){
     unite(x, y);
   }
   for(int i=0; i<N; i++){
-    cout << i << ": " << root(i) << ' ' << rank[i] << endl;
+    cout << i << ": " << root(i) << ' ' << depth[i] << endl;
   }
   
   return 0;
