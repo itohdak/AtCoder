@@ -4,10 +4,11 @@ using namespace std;
 
 #define MAX_N 100000
 
-int par[MAX_N];
+int par[MAX_N]; // 親の番号
 int depth[MAX_N];
 int nGroup[MAX_N];
 
+// n要素で初期化
 void init(int n){
   for(int i=0; i<n; i++){
     par[i] = i;
@@ -15,18 +16,21 @@ void init(int n){
     nGroup[i] = 1;
   }
 }
+// 木の根を求める
 int root(int x){
-  if(par[x] == x){
+  if(par[x] == x){ // 根
     return x;
   } else {
-    return par[x] = root(par[x]);
+    return par[x] = root(par[x]); // 経路圧縮
   }
 }
 
+// xとyが同じ集合に属するか否か
 bool same(int x, int y){
   return root(x) == root(y);
 }
 
+// xとyの属する集合を併合
 void unite(int x, int y){
   x = root(x);
   y = root(y);

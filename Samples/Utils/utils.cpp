@@ -1,3 +1,5 @@
+#include <bits/stdc++.h>
+using namespace std;
 #define ll long long
 
 /*
@@ -59,4 +61,8 @@ ll mod_inv(ll a, ll m=MOD) {
     px += m;
 
   return px;
+}
+
+ll sumOfVector(vector<ll> v) {
+  return accumulate(v.begin(), v.end(), 0LL);
 }
