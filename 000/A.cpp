@@ -1,14 +1,9 @@
-#include <iostream>
-#include <cstdlib>
-#include <algorithm>
-#include <cmath>
-#include <vector>
-#include <numeric> // accumulate(v.begin(), v.end(), 0)
+#include <bits/stdc++.h>
 
 using namespace std;
 #define ll long long
 
-int main(){
+int main() {
   return 0;
 }
 
