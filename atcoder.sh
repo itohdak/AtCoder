@@ -10,4 +10,6 @@ function mkdir_atcoder () {
     cp $(dirname $0)/000/A.cpp $PWD/$1/F.cpp
 }
 
-mkdir_atcoder $1
+if [ $# -ne 0 ]; then
+    mkdir_atcoder $1
+fi
