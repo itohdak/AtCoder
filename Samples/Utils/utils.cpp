@@ -2,6 +2,12 @@
 using namespace std;
 #define ll long long
 
+struct data {
+  ll a;
+  ll b;
+  data(ll a_, ll b_) : a(a_), b(b_) {}
+};
+
 /*
   階乗
 */
@@ -30,7 +36,7 @@ ll gcd(ll x, ll y) {
 */
 ll lcm(ll x, ll y) {
   ll g = gcd(x, y);
-  return (x / g) * (y / g);
+  return g * (x / g) * (y / g);
 }
 
 /*
