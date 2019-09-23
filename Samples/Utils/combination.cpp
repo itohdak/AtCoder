@@ -39,7 +39,7 @@
 // http://keita-matsushita.hatenablog.com/entry/2016/12/05/184011
 
 
-#define N 30
+#define N 100000
 const ll mod = 1e+9+7;
 ll inv[N], fac[N], finv[N];
 void make() {
