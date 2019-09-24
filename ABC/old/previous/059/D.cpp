@@ -8,13 +8,9 @@ const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
 
 int main() {
-  int N, M;
-  cin >> N >> M;
-  rep(i, M) {
-    int u, v;
-    cin >> u >> v;
-    
-  }
+  ll X, Y;
+  cin >> X >> Y;
+  cout << (abs(X - Y) <= 1 ? "Brown" : "Alice") << endl;
   return 0;
 }
 
