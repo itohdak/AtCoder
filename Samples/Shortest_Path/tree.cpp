@@ -13,24 +13,26 @@ struct edge {
   edge(int to, ll cost) : to(to), cost(cost) {}
 };
 
-void dfs(vector<vector<edge> >& G,
-         vector<bool>& vis,
-         vector<ll>& D,
-         int tmp, int par, ll cost) {
+vector<vector<edge> > G;
+vector<bool> vis;
+vector<ll> D;
+void dfs(int tmp, int par, ll cost) {
   if(!vis[tmp]) {
     if(par != -1) {
       D[tmp] = D[par] + cost;
     }
     vis[tmp] = true;
     for(auto ne: G[tmp])
-      dfs(G, vis, D, ne.to, tmp, ne.cost);
+      dfs(ne.to, tmp, ne.cost);
   }
 }
 
 int main() {
   int N;
   cin >> N;
-  vector<vector<edge> > G(N);
+  G = vector<vector<edge> >(N);
+  vis = vector<bool>(N);
+  D = vector<ll>(N);
   rep(i, N-1) {
     int a, b;
     ll c;
@@ -42,11 +44,10 @@ int main() {
   int s;
   cin >> s;
   s--;
-  vector<bool> vis(N);
-  vector<ll> D(N);
-  dfs(G, vis, D, s, -1, 0);
-  rep(i, N)
-    cout << i << ": " << D[i] << endl;
+
+  dfs(s, -1, 0);
+
+  rep(i, N) cout << i << ": " << D[i] << endl;
   return 0;
 }
 

@@ -1,5 +1,11 @@
-#define ll long long
 #include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define REP(i,m,n) for(int i=(int)(m); i<(int)(n); i++)
+#define rep(i,n) REP(i,0,n)
+const int inf = 1e9+7;
+const ll longinf = 1LL<<60;
+const ll mod = 1e9+7;
 
 // #define N 30
 // const ll mod = 1e+9+7;
@@ -39,14 +45,13 @@
 // http://keita-matsushita.hatenablog.com/entry/2016/12/05/184011
 
 
-#define N 100000
-const ll mod = 1e+9+7;
-ll inv[N], fac[N], finv[N];
+#define MAX_N 100000
+ll inv[MAX_N], fac[MAX_N], finv[MAX_N];
 void make() {
   fac[0] = fac[1] = 1;
   finv[0] = finv[1] = 1;
   inv[1] = 1;
-  for(int i=2; i<N; i++) {
+  for(int i=2; i<MAX_N; i++) {
     inv[i] = mod - inv[mod%i] * (mod/i) % mod;
     fac[i] = fac[i-1] * (ll)i % mod;
     finv[i] = finv[i-1] * inv[i] % mod;
@@ -69,7 +74,7 @@ ll comb(ll n, ll r) {
 
 int main() {
   make();
-  for(int i=1; i<N; i++) {
+  for(int i=1; i<MAX_N; i++) {
     for(int j=0; j<=i; j++) {
       std::cout << comb(i, j) << ' ';
     }

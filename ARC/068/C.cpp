@@ -11,6 +11,14 @@ const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
 
 int main() {
+  ll x;
+  cin >> x;
+  if(x % 11 > 6)
+    cout << x / 11 * 2 + 2 << endl;
+  else if (x % 11 == 0)
+    cout << x / 11 * 2 << endl;
+  else
+    cout << x / 11 * 2 + 1 << endl;
   return 0;
 }
 

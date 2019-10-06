@@ -9,36 +9,36 @@ const ll mod = 1e9+7;
 
 typedef vector<vector<int> > Matrix;
 
-Matrix d; // グラフの距離を格納した2次元配列（隣接行列）
-          // d[u][v]は辺e=(u,v)のコスト（辺が存在しない場合はinf、ただしd[i][i]=0）
+Matrix dist; // グラフの距離を格納した2次元配列（隣接行列）
+             // dist[u][v]は辺e=(u,v)のコスト（辺が存在しない場合はinf、ただしdist[i][i]=0）
 
 void warshall_floyd(int n) { // nは頂点数
-  for (int i = 0; i < n; i++)      // 経由する頂点
-    for (int j = 0; j < n; j++)    // 開始頂点
-      for (int k = 0; k < n; k++)  // 終端
-        d[j][k] = min(d[j][k], d[j][i] + d[i][k]);
+  rep(i, n)      // 経由する頂点
+    rep(j, n)    // 開始頂点
+      rep(k, n)  // 終端
+        dist[j][k] = min(dist[j][k], dist[j][i] + dist[i][k]);
 }
 
 int main() {
   int n, m;
   cin >> n;
 
-  d = Matrix(n, vector<int>(n, inf));
-  for (int i = 0; i < n; i++) d[i][i] = 0;
+  dist = Matrix(n, vector<int>(n, inf));
+  rep(i, n) dist[i][i] = 0;
 
   cin >> m;
-  for (int i = 0; i < m; i++) {
+  rep(i, m) {
     int from, to, cost;
     cin >> from >> to >> cost;
-    d[from][to] = cost;
+    dist[from][to] = cost;
   }
 
   warshall_floyd(n);
 
-  for (int i = 0; i < n; i++) {
-    for (int j = 0; j < n; j++) {
-      if (i != j && d[i][j] != inf)
-        cout << i << "から" << j << "へのコスト: " << d[i][j] << endl;
+  rep(i, n) {
+    rep(j, n) {
+      if (i != j && dist[i][j] != inf)
+        cout << i << "から" << j << "へのコスト: " << dist[i][j] << endl;
     }
   }
 

@@ -1,8 +1,11 @@
-#include <iostream>
-#include <cmath>
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
 #define ll long long
+#define REP(i,m,n) for(int i=(int)(m); i<(int)(n); i++)
+#define rep(i,n) REP(i,0,n)
+const int inf = 1e9+7;
+const ll longinf = 1LL<<60;
+const ll mod = 1e9+7;
 
 /*
   素数か否か
@@ -44,7 +47,7 @@ void Eratosthenes(int N) {
   for(int i=2; i<sqrt(N); i++) {
     if(arr[i]) {
       for(int j=0; i*(j+2)<N; j++) {
-	arr[i*(j+2)] = false;
+        arr[i*(j+2)] = false;
       }
     }
   }
@@ -60,49 +63,22 @@ void Eratosthenes(int N) {
 /*
   素因数分解
 */
-struct data {
-  ll prime;
-  int power;
-  data(ll prime, int power) : prime(prime), power(power) {}
-};
-vector<data> result;
-void factorization(ll N) {
+map<ll, int> res;
+void prime_factorization(ll N) {
   if(N == 1 || N == 0) return;
-
-  bool first = true;
-  int n = N;
-  while(n % 2 == 0) {
-    if(first) {
-      result.push_back(data(2LL, 1));
-      first = false;
-    } else {
-      result[result.size()-1].power++;
-    }
-    n /= 2;
-  }
-  first = true;
-
-  for(ll i=3; i<ceil(sqrt(N)); i+=2) {
+  ll n = N;
+  ll i = 2;
+  while(n >= i * i) {
     while(n % i == 0) {
-      if(first) {
-	result.push_back(data(i, 1));
-	first = false;
-      } else {
-	result[result.size()-1].power++;
-      }
+      if(res.count(i)) res[i]++;
+      else res[i] = 1;
       n /= i;
     }
-    first = true;
+    if(i == 2) i++;
+    else i += 2;
   }
-
-  if(n != 1) {
-    result.push_back(data(n, 1));
-  }
-
-  return;
+  if(n != 1) res[n] = 1;
 }
-
-
 
 /*
   約数

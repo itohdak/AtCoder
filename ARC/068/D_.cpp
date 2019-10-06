@@ -11,6 +11,19 @@ const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
 
 int main() {
+  int N;
+  cin >> N;
+  map<int, int> mp;
+  rep(i, N) {
+    int a;
+    cin >> a;
+    if(!mp.count(a)) mp[a] = 1;
+    else             mp[a]++;
+  }
+  if(mp.size() % 2 == 1)
+    cout << mp.size() << endl;
+  else
+    cout << mp.size() - 1 << endl;
   return 0;
 }
 
