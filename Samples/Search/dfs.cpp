@@ -8,15 +8,15 @@ const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
 
 vector<vector<int> > E; // edges
-void dfs(int v, int par, int value){
+void dfs(int tmp, int par, int value){
   int next_val = 0;
   /*
     implement here
     ex) update next_val
   */
-  for(int c: E[v])
+  for(int c: E[tmp])
     if(c != par)
-      dfs(c, v, next_val);
+      dfs(c, tmp, next_val);
 }
 // dfs(0, -1, 0)
 
