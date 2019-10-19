@@ -72,3 +72,10 @@ ll mod_inv(ll a, ll m=MOD) {
 ll sumOfVector(vector<ll> v) {
   return accumulate(v.begin(), v.end(), 0LL);
 }
+
+// 除算したものの切り上げ（天井関数）
+// ceil((double) n / d) だと怪しい
+// ceil((long double) n / d) だと大丈夫？
+ll devided_ceil(ll n, ll d) {
+  return (n + d - 1) / d;
+}
