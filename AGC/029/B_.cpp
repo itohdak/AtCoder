@@ -13,30 +13,22 @@ const ll mod = 1e9+7;
 int main() {
   int N;
   cin >> N;
-  vector<ll> A(N);
-  rep(i, N) cin >> A[i];
-  map<ll, int, greater<ll> > mp;
+  multiset<ll, greater<ll> > se;
   rep(i, N) {
-    if(!mp.count(A[i])) mp[A[i]] = 1;
-    else mp[A[i]]++;
+    ll a;
+    cin >> a;
+    se.insert(a);
   }
   int ans = 0;
-  for(auto a: mp) {
-    ll tmp = a.first;
+  while(!se.empty()) {
+    ll tmp = *se.begin();
     ll pair = (ll)pow(2, ceil(log2(tmp))) - tmp;
-    if(pair == 0) {
-      if(mp[tmp] > 0) {
-        int cnt = mp[tmp] / 2;
-        mp[tmp] -= 2 * cnt;
-        ans += cnt;
-      }
-    } else {
-      if(mp[tmp] > 0 && mp.count(pair) && mp[pair] > 0) {
-        int cnt = min(mp[tmp], mp[pair]);
-        mp[tmp] -= cnt;
-        mp[pair] -= cnt;
-        ans += cnt;
-      }
+    if(pair == 0) pair = tmp;
+    se.erase(se.begin());
+    auto itr = se.find(pair);
+    if(itr != se.end()) {
+      ans++;
+      se.erase(itr);
     }
   }
   cout << ans << endl;
