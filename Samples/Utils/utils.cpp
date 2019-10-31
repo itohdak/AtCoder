@@ -8,6 +8,27 @@ struct data {
   data(ll a_, ll b_) : a(a_), b(b_) {}
 };
 
+
+/*
+  冪乗(pow(a, N); O(logN))
+*/
+const ll mod = 1e9+7;
+ll binary_pow(ll a, ll N) {
+  ll ans = 1;
+  ll tmp = a;
+  while(N > 0) {
+    if(N % 2 == 1) {
+      ans *= tmp;
+      ans %= mod;
+    }
+    N /= 2;
+    tmp *= tmp;
+    tmp %= mod;
+  }
+  return ans;
+}
+
+
 /*
   階乗
 */
