@@ -8,7 +8,7 @@ using namespace std;
 #define REPL(i,m,n) for(ll i=(ll)(m); i<(ll)(n); i++)
 #define repl(i,n) REPL(i,0,n)
 #define all(v) v.begin(), v.end()
-template<class t,class u>
+template<class t, class u>
 ostream& operator<<(ostream& os, const pair<t, u>& p) {
   return os << "{" << p.first << ", " << p.second << "}";
 }
