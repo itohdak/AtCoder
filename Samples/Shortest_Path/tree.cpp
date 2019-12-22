@@ -14,24 +14,20 @@ struct edge {
 };
 
 vector<vector<edge> > G;
-vector<bool> vis;
 vector<ll> D;
 void dfs(int tmp, int par, ll cost) {
-  if(!vis[tmp]) {
-    if(par != -1) {
-      D[tmp] = D[par] + cost;
-    }
-    vis[tmp] = true;
-    for(auto ne: G[tmp])
-      dfs(ne.to, tmp, ne.cost);
+  if(par != -1) {
+    D[tmp] = D[par] + cost;
   }
+  for(auto ne: G[tmp])
+    if(ne.to != par)
+      dfs(ne.to, tmp, ne.cost);
 }
 
 int main() {
   int N;
   cin >> N;
   G = vector<vector<edge> >(N);
-  vis = vector<bool>(N);
   D = vector<ll>(N);
   rep(i, N-1) {
     int a, b;

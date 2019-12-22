@@ -2,7 +2,7 @@
 
 using namespace std;
 
-#define MAX_N 100000
+#define MAX_N 100005
 
 class UnionFind
 {

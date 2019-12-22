@@ -7,8 +7,13 @@ const int inf = 1e9+7;
 const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
 
-#define MAX_N 40000
-vector<pair<int, int> > G[MAX_N];
+struct edge {
+  int to;
+  ll cost;
+  edge(int to, ll cost) : to(to), cost(cost) {}
+};
+
+vector<vector<edge> > G;
 
 class LCA {
 public:
@@ -19,7 +24,7 @@ public:
   LCA(int V) {
     this->V = V;
     logV = 0;
-    while (V > (1LL<<logV)) logV++;
+    while(V > (1LL<<logV)) logV++;
     this->depth = vector<int>(V);
     this->len = vector<int>(V);
     this->parent = vector<vector<int> >(logV, vector<int>(V));
@@ -29,33 +34,33 @@ public:
     depth[v] = d;       // rootからの深さ
     parent[0][v] = par; // 親
     len[v] = l;         // rootからの距離
-    for (int i = 0; i < (int)G[v].size(); i++) {
-      int w = G[v][i].first;   // 子ノード
-      int lc = G[v][i].second; // 子ノードとの距離
-      if (w == par) continue;
+    for(int i=0; i<(int)G[v].size(); i++) {
+      int w = G[v][i].to;   // 子ノード
+      int lc = G[v][i].cost; // 子ノードとの距離
+      if(w == par) continue;
       init(w, v, d+1, lc + l);
     }
   }
 
   void build() {
-    for (int k = 0; k + 1 < logV; k++) {
-      for (int v = 0; v < V; v++) {
-        if (parent[k][v] < 0) parent[k+1][v] = -1;
+    for(int k=0; k+1<logV; k++) {
+      for(int v=0; v<V; v++) {
+        if(parent[k][v] < 0) parent[k+1][v] = -1;
         else parent[k+1][v] = parent[k][parent[k][v]];
       }
     }
   }
 
   int query(int u, int v) {
-    if (depth[u] > depth[v]) swap(u, v);
-    for (int k = 0; k < logV; k++) {
-      if ((depth[v] - depth[u]) >> k & 1)
+    if(depth[u] > depth[v]) swap(u, v);
+    for(int k=0; k<logV; k++) {
+      if((depth[v] - depth[u]) >> k & 1)
         v = parent[k][v];
     }
-    if (u == v) return u;
+    if(u == v) return u;
 
-    for (int k = logV-1; k >= 0; k--) {
-      if (parent[k][u] != parent[k][v]) {
+    for(int k=logV-1; k>=0; k--) {
+      if(parent[k][u] != parent[k][v]) {
         u = parent[k][u];
         v = parent[k][v];
       }
@@ -67,13 +72,14 @@ public:
 int main() {
   int N, M;
   cin >> N >> M;
+  G = vector<vector<edge> >(N);
 
   rep(i, M) {
     int x, y, d;
     cin >> x >> y >> d;
     x--; y--;
-    G[x].push_back(make_pair(y, d));
-    G[y].push_back(make_pair(x, d));
+    G[x].push_back(edge(y, d));
+    G[y].push_back(edge(x, d));
   }
 
   LCA lca(N);
