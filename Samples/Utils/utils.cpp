@@ -63,8 +63,20 @@ ll lcm(ll x, ll y) {
 /*
   モジュラ逆元
 */
-#define MOD 1000000007
-ll mod_inv(ll a, ll m=MOD) {
+#define mod 1000000007
+ll modinv(ll a, ll m=mod) {
+  ll b = m, u = 1, v = 0;
+  while(b) {
+    ll t = a / b;
+    a -= t * b; swap(a, b);
+    u -= t * v; swap(u, v);
+  }
+  u %= m;
+  if(u < 0) u += m;
+  return u;
+}
+
+ll modinv_old(ll a, ll m=mod) {
   ll x = 0, y = 1, gcd = m;
   ll px = 1, py = 0, pgcd = a;
   ll tmp = 0;
