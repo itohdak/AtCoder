@@ -14,29 +14,14 @@ const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
 
 int main() {
-  int N;
-  cin >> N;
-  vector<ll> A(N);
-  int Nmin = 0;
-  ll summin = 0;
-  rep(i, N) {
+  int K, T;
+  cin >> K >> T;
+  vector<int> A(T);
+  int mx = 0;
+  rep(i, T) {
     cin >> A[i];
-    if(A[i]<0) {
-      Nmin++;
-      summin += A[i];
-    }
+    mx = max(A[i], mx);
   }
-  sort(all(A));
-  if(Nmin == N) summin -= A[--Nmin];
-  else if(Nmin == 0) summin += A[Nmin++];
-  cout << accumulate(all(A), 0LL) - 2*summin << endl;
-  rep(i, N-Nmin-1) {
-    cout << A[0] << ' ' << A[N-2-i] << endl;
-    A[0] -= A[N-2-i];
-  }
-  rep(i, Nmin) {
-    cout << A[N-1] << ' ' << A[i] << endl;
-    A[N-1] -= A[i];
-  }
+  cout << (mx<=(K+1)/2 ? 0 : mx-1-(K-mx)) << endl;
   return 0;
 }

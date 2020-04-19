@@ -16,27 +16,16 @@ const ll mod = 1e9+7;
 int main() {
   int N;
   cin >> N;
-  vector<ll> A(N);
-  int Nmin = 0;
-  ll summin = 0;
+  vector<string> S(3);
+  rep(i, 3) cin >> S[i];
+  int ans = 0;
   rep(i, N) {
-    cin >> A[i];
-    if(A[i]<0) {
-      Nmin++;
-      summin += A[i];
-    }
+    vector<int> alph(26);
+    rep(j, 3) alph[int(S[j][i]-'a')]++;
+    int mx = 0;
+    rep(j, 26) mx = max(alph[j], mx);
+    ans += 3-mx;
   }
-  sort(all(A));
-  if(Nmin == N) summin -= A[--Nmin];
-  else if(Nmin == 0) summin += A[Nmin++];
-  cout << accumulate(all(A), 0LL) - 2*summin << endl;
-  rep(i, N-Nmin-1) {
-    cout << A[0] << ' ' << A[N-2-i] << endl;
-    A[0] -= A[N-2-i];
-  }
-  rep(i, Nmin) {
-    cout << A[N-1] << ' ' << A[i] << endl;
-    A[N-1] -= A[i];
-  }
+  cout << ans << endl;
   return 0;
 }

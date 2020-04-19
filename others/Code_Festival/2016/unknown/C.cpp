@@ -16,27 +16,25 @@ const ll mod = 1e9+7;
 int main() {
   int N;
   cin >> N;
-  vector<ll> A(N);
-  int Nmin = 0;
-  ll summin = 0;
-  rep(i, N) {
-    cin >> A[i];
-    if(A[i]<0) {
-      Nmin++;
-      summin += A[i];
+  vector<ll> T(N+2), A(N+2);
+  ll ans = 1;
+  rep(i, N) cin >> T[i+1];
+  rep(i, N) cin >> A[i+1];
+  T[0] = 0;    T[N+1] = T[N];
+  A[0] = A[1]; A[N+1] = 0;
+  REP(i, 1, N+1) {
+    if(T[i] != T[i-1] &&
+       A[i] != A[i+1] &&
+       T[i] != A[i]) {
+      ans = 0;
+    } else if(T[i] != T[i-1]) {
+      if(T[i] > A[i]) ans = 0;
+    } else if(A[i] != A[i+1]) {
+      if(A[i] > T[i]) ans = 0;
+    } else {
+      (ans *= min(T[i], A[i])) %= mod;
     }
   }
-  sort(all(A));
-  if(Nmin == N) summin -= A[--Nmin];
-  else if(Nmin == 0) summin += A[Nmin++];
-  cout << accumulate(all(A), 0LL) - 2*summin << endl;
-  rep(i, N-Nmin-1) {
-    cout << A[0] << ' ' << A[N-2-i] << endl;
-    A[0] -= A[N-2-i];
-  }
-  rep(i, Nmin) {
-    cout << A[N-1] << ' ' << A[i] << endl;
-    A[N-1] -= A[i];
-  }
+  cout << ans << endl;
   return 0;
 }

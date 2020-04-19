@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-// #include "/home/itohdak/AtCoder/000/print.hpp"
 using namespace std;
 #define ll long long
 #define REP(i,m,n) for(int i=(int)(m); i<(int)(n); i++)
@@ -13,19 +12,14 @@ const int inf = 1e9+7;
 const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
 
-int main() {
-  int N;
-  cin >> N;
-  vector<string> S(N);
-  rep(i, N) cin >> S[i];
-  int cnt = 0;
-  rep(k, N) {
-    bool ok = true;
-    rep(i, N) rep(j, N) {
-      if(S[(N+i-k)%N][j] != S[(N+j-k)%N][i]) ok = false;
-    }
-    if(ok) cnt++;
+vector<vector<int>> to, from;
+deque<int> L;
+vector<bool> vis;
+void dfs(int tmp) {
+  if(!vis[tmp]) {
+    vis[tmp] = 1;
+    for(int ne: to[tmp]) dfs(ne);
+    L.push_front(tmp);
   }
-  cout << cnt * N << endl;
-  return 0;
 }
+// rep(i, N) dfs(i); -> L

@@ -1,38 +1,31 @@
-#include <iostream>
-#include <cstdlib>
-#include <algorithm>
-#include <cmath>
-#include <vector>
-#include <numeric> // accumulate(v.begin(), v.end(), 0)
-
+#include <bits/stdc++.h>
+#include "/home/itohdak/AtCoder/000/print.hpp"
 using namespace std;
 #define ll long long
+#define REP(i,m,n) for(int i=(int)(m); i<(int)(n); i++)
+#define rep(i,n) REP(i,0,n)
+#define RREP(i,m,n) for(int i=(int)(m); i>=(int)(n); i--)
+#define rrep(i,n) RREP(i,n-1,0)
+#define REPL(i,m,n) for(ll i=(ll)(m); i<(ll)(n); i++)
+#define repl(i,n) REPL(i,0,n)
+#define all(v) v.begin(), v.end()
+const int inf = 1e9+7;
+const ll longinf = 1LL<<60;
+const ll mod = 1e9+7;
 
-int main(){
+int main() {
   int N;
   cin >> N;
-  vector<ll> S;
+  vector<ll> A(N);
+  rep(i, N) cin >> A[i];
+  map<ll, int> mp;
+  mp[0] = 1;
   ll sum = 0;
-  S.push_back(sum);
-  int ret = 0;
-  for(int i=0; i<N; i++){
-    ll in;
-    cin >> in;
-    sum += in;
-    S.push_back(sum);
+  ll ans = 0;
+  rep(i, N) {
+    sum += A[i];
+    ans += mp[sum]++;
   }
-  sort(S.begin(), S.end());
-  int i = 0;
-  while(i < N+1){
-    int init = i;
-    ll s = S[i];
-    while(i+1 < N+1 && S[i+1] == s){
-      i++;
-    }
-    ret += ((i - init + 1) * (i - init) / 2);
-    i++;
-  }
-  cout << ret << endl;
+  cout << ans << endl;
   return 0;
 }
-

@@ -17,26 +17,20 @@ int main() {
   int N;
   cin >> N;
   vector<ll> A(N);
-  int Nmin = 0;
-  ll summin = 0;
+  ll ans = 0;
+  ll tmp;
   rep(i, N) {
     cin >> A[i];
-    if(A[i]<0) {
-      Nmin++;
-      summin += A[i];
+    if(i) {
+      tmp = min(A[i-1], A[i]);
+      ans += tmp;
+      A[i-1] -= tmp;
+      A[i] -= tmp;
     }
+    tmp = A[i] / 2;
+    ans += tmp;
+    A[i] -= 2 * tmp;
   }
-  sort(all(A));
-  if(Nmin == N) summin -= A[--Nmin];
-  else if(Nmin == 0) summin += A[Nmin++];
-  cout << accumulate(all(A), 0LL) - 2*summin << endl;
-  rep(i, N-Nmin-1) {
-    cout << A[0] << ' ' << A[N-2-i] << endl;
-    A[0] -= A[N-2-i];
-  }
-  rep(i, Nmin) {
-    cout << A[N-1] << ' ' << A[i] << endl;
-    A[N-1] -= A[i];
-  }
+  cout << ans << endl;
   return 0;
 }

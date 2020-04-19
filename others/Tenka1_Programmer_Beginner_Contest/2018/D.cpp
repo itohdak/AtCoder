@@ -16,27 +16,33 @@ const ll mod = 1e9+7;
 int main() {
   int N;
   cin >> N;
-  vector<ll> A(N);
-  int Nmin = 0;
-  ll summin = 0;
-  rep(i, N) {
-    cin >> A[i];
-    if(A[i]<0) {
-      Nmin++;
-      summin += A[i];
+  bool ok = false;
+  REP(k, 1, sqrt(2*N)+1) {
+    if(k*(k+1)/2==N) {
+      ok = true;
+      cout << "Yes" << endl;
+      cout << k+1 << endl;
+      vector<vector<int> > ans(k+1);
+      int i = 1;
+      int tmp = 0;
+      while(i <= N) {
+	int tmp2 = 1;
+	while(ans[tmp].size() < k) {
+	  ans[tmp].push_back(i);
+	  ans[tmp+tmp2].push_back(i);
+	  tmp2++;
+	  i++;
+	}
+	tmp++;
+      }
+      rep(i, k+1) {
+	cout << k << ' ';
+	for(int a: ans[i]) cout << a << ' ';
+	cout << endl;
+      }
+      break;
     }
   }
-  sort(all(A));
-  if(Nmin == N) summin -= A[--Nmin];
-  else if(Nmin == 0) summin += A[Nmin++];
-  cout << accumulate(all(A), 0LL) - 2*summin << endl;
-  rep(i, N-Nmin-1) {
-    cout << A[0] << ' ' << A[N-2-i] << endl;
-    A[0] -= A[N-2-i];
-  }
-  rep(i, Nmin) {
-    cout << A[N-1] << ' ' << A[i] << endl;
-    A[N-1] -= A[i];
-  }
+  if(!ok) cout << "No" << endl;
   return 0;
 }

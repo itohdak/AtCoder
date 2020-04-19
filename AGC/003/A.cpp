@@ -14,29 +14,15 @@ const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
 
 int main() {
-  int N;
-  cin >> N;
-  vector<ll> A(N);
-  int Nmin = 0;
-  ll summin = 0;
-  rep(i, N) {
-    cin >> A[i];
-    if(A[i]<0) {
-      Nmin++;
-      summin += A[i];
-    }
+  string S;
+  cin >> S;
+  vector<bool> flag(4);
+  for(char c: S) {
+    if(c == 'N') flag[0] = 1;
+    else if(c == 'S') flag[1] = 1;
+    else if(c == 'W') flag[2] = 1;
+    else flag[3] = 1;
   }
-  sort(all(A));
-  if(Nmin == N) summin -= A[--Nmin];
-  else if(Nmin == 0) summin += A[Nmin++];
-  cout << accumulate(all(A), 0LL) - 2*summin << endl;
-  rep(i, N-Nmin-1) {
-    cout << A[0] << ' ' << A[N-2-i] << endl;
-    A[0] -= A[N-2-i];
-  }
-  rep(i, Nmin) {
-    cout << A[N-1] << ' ' << A[i] << endl;
-    A[N-1] -= A[i];
-  }
+  cout << ((!(flag[0]^flag[1]) && !(flag[2]^flag[3])) ? "Yes" : "No") << endl;
   return 0;
 }

@@ -16,27 +16,32 @@ const ll mod = 1e9+7;
 int main() {
   int N;
   cin >> N;
-  vector<ll> A(N);
-  int Nmin = 0;
-  ll summin = 0;
-  rep(i, N) {
-    cin >> A[i];
-    if(A[i]<0) {
-      Nmin++;
-      summin += A[i];
+  vector<int> D(N+1);
+  D[0] = 0;
+  rep(i, N) cin >> D[i+1];
+  sort(all(D));
+  vector<int> cnt(24);
+  int flag = 0;
+  rep(i, N+1) {
+    if(flag) {
+      cnt[D[i]%24]++;
+    } else {
+      cnt[(24-D[i])%24]++;
+    }
+    flag = 1-flag;
+  }
+  int ans = 24;
+  int tmp = 0;
+  rep(i, 25) {
+    if(cnt[i] > 1) ans = 0;
+    if(i) {
+      tmp++;
+      if(cnt[i%24]) {
+	ans = min(tmp, ans);
+	tmp = 0;
+      }
     }
   }
-  sort(all(A));
-  if(Nmin == N) summin -= A[--Nmin];
-  else if(Nmin == 0) summin += A[Nmin++];
-  cout << accumulate(all(A), 0LL) - 2*summin << endl;
-  rep(i, N-Nmin-1) {
-    cout << A[0] << ' ' << A[N-2-i] << endl;
-    A[0] -= A[N-2-i];
-  }
-  rep(i, Nmin) {
-    cout << A[N-1] << ' ' << A[i] << endl;
-    A[N-1] -= A[i];
-  }
+  cout << ans << endl;
   return 0;
 }
