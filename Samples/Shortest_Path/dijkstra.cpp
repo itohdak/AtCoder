@@ -11,7 +11,7 @@ struct edge {
   edge(int t, ll c): to(t), cost(c) {};
 };
 
-using P = pair<int, ll>;
+using P = pair<ll, int>;
 
 int N;
 vector<vector<edge>> G;
