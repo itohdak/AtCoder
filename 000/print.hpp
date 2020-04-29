@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <set>
+#include <unordered_set>
 #include <map>
 using namespace std;
 
@@ -14,6 +15,12 @@ template<class t> ostream& operator<<(ostream& os, const vector<t>& v) {
   return os << "}";
 }
 template<class t> ostream& operator<<(ostream& os, const set<t>& se) {
+  os << "{";
+  auto itr = se.begin();
+  for(int i=0; i<se.size(); i++) { if(i) os << ", "; os << *itr; itr++; }
+  return os << "}";
+}
+template<class t> ostream& operator<<(ostream& os, const unordered_set<t>& se) {
   os << "{";
   auto itr = se.begin();
   for(int i=0; i<se.size(); i++) { if(i) os << ", "; os << *itr; itr++; }
