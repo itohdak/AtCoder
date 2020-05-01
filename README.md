@@ -13,3 +13,20 @@ $ source setup.sh # this will overwrite ~/.bashrc to define function "mkdir_atco
 $ mkdir_atcoder [folder_name]
 # you can see a new folder named [folder_name] which includes sample cpp files
 ```
+## Utils
+### Bash Codes
+```
+# remove comment outs and local-depended include line
+function cat_atcoder () {
+    cat $1 | grep -v "^ *//" | grep -v "#include \"/home/itohdak/AtCoder/000/print.hpp\""
+}
+
+# copy to clipboard
+alias pbcopy='xsel --clipboard --input'
+```
+### Sample Usage
+```
+$ cat_atcoder A.cpp | pbcopy
+
+# You can paste the copied codes with Ctrl-V
+```
