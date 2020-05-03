@@ -14,5 +14,9 @@ const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
 
 int main() {
+  string S;
+  cin >> S;
+  if(S == "ARC") cout << "ABC" << endl;
+  else cout << "ARC" << endl;
   return 0;
 }

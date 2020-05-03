@@ -13,6 +13,26 @@ const int inf = 1e9+7;
 const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
 
+map<ll, ll> mp;
+ll X;
+bool test(int n) {
+  ll tmp = 1;
+  rep(i, 5) tmp *= n;
+  if(mp.count(tmp-X)) {
+    cout << n << ' ' << mp[tmp-X] << endl;
+    return true;
+  } else if(mp.count(-tmp+X)) {
+    cout << n << ' ' << -mp[-tmp+X] << endl;
+    return true;
+  } else {
+    mp[tmp] = n;
+    return false;
+  }
+}
 int main() {
+  cin >> X;
+  ll tmp = 1;
+  mp[0] = 0;
+  while(!test(tmp)) { tmp++; }
   return 0;
 }

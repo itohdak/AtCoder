@@ -14,5 +14,21 @@ const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
 
 int main() {
+  int N, M;
+  cin >> N >> M;
+  vector<ll> H(N);
+  set<int> se;
+  rep(i, N) {
+    cin >> H[i];
+    se.insert(i);
+  }
+  vector<int> A(M), B(M);
+  rep(i, M) {
+    cin >> A[i] >> B[i];
+    --A[i], --B[i];
+    if(H[A[i]] <= H[B[i]]) se.erase(A[i]);
+    if(H[A[i]] >= H[B[i]]) se.erase(B[i]);
+  }
+  cout << se.size() << endl;
   return 0;
 }

@@ -14,5 +14,23 @@ const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
 
 int main() {
+  int N;
+  cin >> N;
+  vector<ll> A(N);
+  map<ll, vector<int> > mp;
+  rep(i, N) {
+    cin >> A[i];
+    mp[A[i]+(i+1)].push_back(i);
+  }
+  // cout << mp << endl;
+  ll ans = 0;
+  rep(i, N) {
+    ll tmp = -A[i]+(i+1);
+    if(mp.count(tmp)) {
+      auto v = mp[tmp];
+      ans += (upper_bound(all(v), i) - v.begin());
+    }
+  }
+  cout << ans << endl;
   return 0;
 }

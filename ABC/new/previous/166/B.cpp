@@ -14,5 +14,19 @@ const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
 
 int main() {
+  int N, K;
+  cin >> N >> K;
+  set<int> se;
+  rep(i, N) se.insert(i);
+  rep(i, K) {
+    int d;
+    cin >> d;
+    rep(j, d) {
+      int a;
+      cin >> a;
+      se.erase(--a);
+    }
+  }
+  cout << se.size() << endl;
   return 0;
 }
