@@ -30,7 +30,7 @@ ll prim(int N) {
     if(v != 0) { conn.push_back(make_pair(v, from[v])); }
     rep(u, N) {
       if(cost[v][u] < mincost[u]) {
-        mincost[u] =  cost[v][u];
+        mincost[u] = cost[v][u];
         from[u] = v;
       }
     }
