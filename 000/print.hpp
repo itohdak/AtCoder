@@ -3,6 +3,7 @@
 #include <set>
 #include <unordered_set>
 #include <map>
+#include <deque>
 using namespace std;
 
 template<class t, class u>
@@ -24,6 +25,18 @@ template<class t> ostream& operator<<(ostream& os, const unordered_set<t>& se) {
   os << "{";
   auto itr = se.begin();
   for(int i=0; i<se.size(); i++) { if(i) os << ", "; os << *itr; itr++; }
+  return os << "}";
+}
+template<class t> ostream& operator<<(ostream& os, const multiset<t>& se) {
+  os << "{";
+  auto itr = se.begin();
+  for(int i=0; i<se.size(); i++) { if(i) os << ", "; os << *itr; itr++; }
+  return os << "}";
+}
+template<class t> ostream& operator<<(ostream& os, const deque<t>& que) {
+  os << "{";
+  auto itr = que.begin();
+  for(int i=0; i<que.size(); i++) { if(i) os << ", "; os << *itr; itr++; }
   return os << "}";
 }
 template<class t, class u>

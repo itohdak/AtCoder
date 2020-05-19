@@ -14,5 +14,7 @@ const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
 
 int main() {
+  cin.tie(0);
+  ios::sync_with_stdio(false);
   return 0;
 }
