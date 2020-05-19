@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+#include "/home/itohdak/AtCoder/000/print.hpp"
+using namespace std;
+#define ll long long
+#define REP(i,m,n) for(int i=(int)(m); i<(int)(n); i++)
+#define rep(i,n) REP(i,0,n)
+#define RREP(i,m,n) for(int i=(int)(m); i>=(int)(n); i--)
+#define rrep(i,n) RREP(i,n-1,0)
+#define REPL(i,m,n) for(ll i=(ll)(m); i<(ll)(n); i++)
+#define repl(i,n) REPL(i,0,n)
+#define all(v) v.begin(), v.end()
+const int inf = 1e9+7;
+const ll longinf = 1LL<<60;
+const ll mod = 1e9+7;
+
+int main() {
+  int H, W;
+  cin >> H >> W;
+  vector<string> S(H);
+  rep(i, H) cin >> S[i];
+  vector<vector<int>> res(H, vector<int>(W, -1));
+  res[H-1][W-1] = 0;
+  auto isInside = [&](int x, int y) {
+    return 0<=x && x<H && 0<=y && y<W;
+  };
+  function<int(int, int)> dfs = [&](int x, int y) {
+    if(!isInside(x, y) || S[x][y] == '#') return 1;
+    if(res[x][y] != -1) return res[x][y];
+    int tmp = 0;
+    if(dfs(x+1, y  ) == 0) tmp = 1;
+    if(dfs(x,   y+1) == 0) tmp = 1;
+    if(dfs(x+1, y+1) == 0) tmp = 1;
+    return res[x][y] = tmp;
+  };
+  cout << (dfs(0, 0) ? "First" : "Second") << endl;
+  return 0;
+}

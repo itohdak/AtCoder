@@ -18,37 +18,29 @@ int main() {
   cin >> N;
   vector<ll> A(N);
   rep(i, N) cin >> A[i];
-  if(N%2==1) {
-    vector<ll> suml(N), sumr(N);
-    ll mn = inf;
-    rep(i, N) {
-      if(i%2==0) {
-	if(i) suml[i] += suml[i-2];
-	suml[i] += A[i];
-	mn = min(A[i], mn);
+
+  vector<vector<vector<ll>>>
+    dp(N+1, vector<vector<ll>>(2, vector<ll>(3, -longinf))); // index, select(1) or not(0), not select count
+  dp[0][0][0] = 0;
+  rep(i, N) {
+    rep(k, 3) { // select
+      dp[i+1][1][k] = max(dp[i][0][k]+A[i], dp[i+1][1][k]);
+    }
+    if(i) { // not select
+      rep(k, 3) { // selected previous index
+        dp[i+1][0][k] = max(dp[i][1][k], dp[i+1][0][k]);
       }
-    }
-    rrep(i, N) {
-      if(i%2==1) {
-	if(i+2<N) sumr[i] += sumr[i+2];
-	sumr[i] += A[i];
+      rep(k, 2) { // not selected previous index
+        dp[i+1][0][k+1] = max(dp[i][0][k], dp[i+1][0][k+1]);
       }
+    } else {
+      dp[i+1][0][1] = 0;
     }
-    ll ans = suml[N-1]-mn;
-    cout << ans << endl;
-    rep(i, N) {
-      if(i%2==0 && i+3<N) {
-    	ans = max(suml[i]+sumr[i+3], ans);
-      }
-    }
-    cout << ans << endl;
-  } else {
-    ll suml=0, sumr=0;
-    rep(i, N) {
-      if(i%2==0) suml += A[i];
-      else sumr += A[i];
-    }
-    cout << max(suml, sumr) << endl;
   }
+
+  ll ans = -longinf;
+  if(N%2) ans = max(dp[N][1][2], dp[N][0][1]);
+  else ans = max(dp[N][1][1], dp[N][0][0]);
+  cout << ans << endl;
   return 0;
 }

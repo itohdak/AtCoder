@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-// #include "/home/itohdak/AtCoder/000/print.hpp"
+#include "/home/itohdak/AtCoder/000/print.hpp"
 using namespace std;
 #define ll long long
 #define REP(i,m,n) for(int i=(int)(m); i<(int)(n); i++)
@@ -14,5 +14,35 @@ const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
 
 int main() {
+  int N, Q;
+  string S;
+  cin >> N >> S >> Q;
+  rep(q, Q) {
+    int k;
+    cin >> k;
+    ll cntD = 0, cntM = 0;
+    ll cnt = 0;
+    ll ans = 0;
+    rep(i, N) {
+      if(S[i] == 'D') {
+        cntD++;
+      } else if(S[i] == 'M') {
+        cntM++;
+        cnt += cntD;
+      } else if(S[i] == 'C') {
+        ans += cnt;
+      }
+
+      if(i >= k-1) {
+        if(S[i-k+1] == 'D') {
+          cntD--;
+          cnt -= cntM;
+        } else if(S[i-k+1] == 'M') {
+          cntM--;
+        }
+      }
+    }
+    cout << ans << endl;
+  }
   return 0;
 }

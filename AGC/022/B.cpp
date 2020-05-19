@@ -1,89 +1,58 @@
-#include <iostream>
-#include <cstdlib>
-#include <algorithm>
-#include <cmath>
-#include <vector>
-#include <numeric> // accumulate(v.begin(), v.end(), 0)
-
+#include <bits/stdc++.h>
+#include "/home/itohdak/AtCoder/000/print.hpp"
 using namespace std;
 #define ll long long
+#define REP(i,m,n) for(int i=(int)(m); i<(int)(n); i++)
+#define rep(i,n) REP(i,0,n)
+#define RREP(i,m,n) for(int i=(int)(m); i>=(int)(n); i--)
+#define rrep(i,n) RREP(i,n-1,0)
+#define REPL(i,m,n) for(ll i=(ll)(m); i<(ll)(n); i++)
+#define repl(i,n) REPL(i,0,n)
+#define all(v) v.begin(), v.end()
+const int inf = 1e9+7;
+const ll longinf = 1LL<<60;
+const ll mod = 1e9+7;
 
-int NN[20000];
-int LCM;
-ll SUM;
-vector<int> ELIM;
-
-int vector_finder(std::vector<int> vec, int number){
-  vector<int>::iterator itr = std::find(vec.begin(), vec.end(), number);
-  size_t index = std::distance( vec.begin(), itr );
-  if (index != vec.size()) { // 発見できたとき
-    return 1;
-  }
-  else { // 発見できなかったとき
-    return 0;
-  }
-}
-
-int gcd(int m, int n){
-  if ( ( 0 == m ) || ( 0 == n ) )
-    return 0;
-  while( m != n )
-    {
-      if ( m > n ) m = m - n;
-      else         n = n - m;
-    }
-  return m;
-}
-
-int lcm(int m, int n){
-  if ( ( 0 == m ) || ( 0 == n ) )
-    return 0;
-  return ((m / gcd(m, n)) * n);
-}
-
-bool prime_p(int num){
-  for(int i=2; i<=floor(sqrt(num)); i++)
-    if(num % i == 0)
-      return false;
-  return true;
-}
-
-void make(int num){
-  int n = num;
-  NN[num - n] = 2;
-  LCM = 2;
-  SUM = 2;
-  n--;
-  int tmp = 3;
-  while(n > 0){
-    if((!prime_p(tmp) || tmp == 3) && vector_finder(ELIM, tmp) == 0){
-      NN[num - n] = tmp;
-      SUM += tmp;
-      n--;
-      if(prime_p(tmp))
-	LCM *= tmp;
-    } else {
-      for(int i=0; tmp*i<30000; i++)
-	ELIM.push_back(tmp*i);
-    }
-    tmp++;
-  }
-}
-
-int main(){
+int main() {
   int N;
   cin >> N;
-  make(N-1);
-  cout << LCM << ' ' << SUM << endl;
-  int tmp2 = lcm(LCM, SUM);
-  NN[N-1] = tmp2 - SUM;
-  while(NN[N-1] < NN[N-2])
-    NN[N-1] += tmp2;
-
-  for(int i=0; i<N; i++)
-    cout << NN[i] << ' ';
-  cout << endl;
-
+  if(N == 3) {
+    cout << 2 << ' ' << 5 << ' ' << 63 << endl;
+  } else if(N == 4) {
+    cout << 2 << ' ' << 5 << ' ' << 20 << ' ' << 63 << endl;
+  } else if(N == 5) {
+    cout << 2 << ' ' << 5 << ' ' << ' ' << 20 << ' ' << 30 << ' ' << 63 << endl;
+  } else {
+    set<int> se;
+    ll sum = 0;
+    int tmp = 2;
+    int i = 0;
+    int diff[] = {1, 1, 2, 2};
+    while(se.size() < N) {
+      se.insert(tmp);
+      sum += tmp;
+      tmp += diff[i];
+      (++i) %= 4;
+    }
+    // cout << se << endl;
+    switch(sum % 6) {
+    case 2:
+      se.erase(8);
+      se.insert((tmp+5)/6*6);
+      break;
+    case 5:
+      se.erase(9);
+      se.insert((tmp+1)/6*6+4);
+      break;
+    case 3:
+      se.erase(9);
+      se.insert((tmp+5)/6*6);
+      break;
+    case 0:
+      break;
+    }
+    for(int s: se) cout << s << ' ';
+    cout << endl;
+  }
   return 0;
 }
-
