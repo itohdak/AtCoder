@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include "/home/itohdak/AtCoder/000/print.hpp"
 using namespace std;
 #define ll long long
 #define REP(i,m,n) for(int i=(int)(m); i<(int)(n); i++)
@@ -12,14 +13,21 @@ const int inf = 1e9+7;
 const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
 
-vector<vector<int>> to, from;
-deque<int> L;
-vector<bool> vis;
-void dfs(int tmp) {
-  if(!vis[tmp]) {
-    vis[tmp] = true;
-    for(int ne: to[tmp]) dfs(ne);
-    L.push_front(tmp);
+template< typename T >
+struct BinaryIndexedTree {
+  vector< T > data;
+
+  BinaryIndexedTree(int sz) {
+    data.assign(++sz, 0);
   }
-}
-// rep(i, N) dfs(i); -> L
+
+  T sum(int k) {
+    T ret = 0;
+    for(++k; k > 0; k -= k & -k) ret += data[k];
+    return (ret);
+  }
+
+  void add(int k, T x) {
+    for(++k; k < data.size(); k += k & -k) data[k] += x;
+  }
+};

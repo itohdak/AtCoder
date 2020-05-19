@@ -112,3 +112,13 @@ ll sumOfVector(vector<ll> v) {
 ll devided_ceil(ll n, ll d) {
   return (n + d - 1) / d;
 }
+
+// 1が立っているbit数を数える
+int bitcount32(unsigned long dw32) {
+  dw32 = ((dw32 & 0xAAAAAAAA) >>  1) + (dw32 & 0x55555555);
+  dw32 = ((dw32 & 0xCCCCCCCC) >>  2) + (dw32 & 0x33333333);
+  dw32 = ((dw32 & 0xF0F0F0F0) >>  4) + (dw32 & 0x0F0F0F0F);
+  dw32 = ((dw32 & 0xFF00FF00) >>  8) + (dw32 & 0x00FF00FF);
+  dw32 = ((dw32 & 0xFFFF0000) >> 16) + (dw32 & 0x0000FFFF);
+  return dw32;
+}

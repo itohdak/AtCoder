@@ -5,6 +5,9 @@ const int inf = 1e9+7;
 const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
 
+int dx[] = {-1, 1, 0, 0};
+int dy[] = {0, 0, -1, 1};
+
 struct edge {
   int to;
   ll cost;
