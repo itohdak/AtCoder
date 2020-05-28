@@ -108,3 +108,4 @@ struct SegmentTree {
     return -1;
   }
 };
+// SegmentTree< int > seg(N, [](int a, int b) { return min(a, b); }, INT_MAX);
