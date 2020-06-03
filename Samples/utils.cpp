@@ -13,7 +13,7 @@ struct data {
   冪乗(pow(a, N); O(logN))
 */
 const ll mod = 1e9+7;
-ll binary_pow(ll a, ll N) {
+ll modpow(ll a, ll N) {
   ll ans = 1;
   ll tmp = a;
   while(N > 0) {
