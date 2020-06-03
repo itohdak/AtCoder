@@ -12,26 +12,25 @@ using namespace std;
 const int inf = 1e9+7;
 const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
-const double pi = 3.14159265358979;
 
 int main() {
-  int A, B, C;
-  cin >> A >> B >> C;
-  auto f = [&](double t) {
-    return A * t + B * sin(C * t * pi);
-  };
-  auto binary_search = [&]() {
-    double ng = 0, ok = 200;
-    while(abs(ok - ng) > 1e-11) {
-      double mid = (ok + ng) / 2;
-      if(f(mid) >= 100) ok = mid;
-      else ng = mid;
-    }
-    return ok;
-  };
-  double ans = binary_search();
-  cout << fixed << setprecision(20);
-  // cout << f(ans) << endl;
-  cout << ans << endl;
+  cin.tie(0);
+  ios::sync_with_stdio(false);
+  int N;
+  cin >> N;
+  vector<ll> A(N), B(N);
+  rep(i, N) cin >> A[i] >> B[i];
+  sort(all(A));
+  sort(all(B));
+  double l, r;
+  if(N % 2 == 0) {
+    l = (A[N/2-1]+A[N/2])/2.0;
+    r = (B[N/2-1]+B[N/2])/2.0;
+    cout << (ll)((r-l)*2.0)+1 << endl;
+  } else {
+    l = A[N/2];
+    r = B[N/2];
+    cout << (ll)(r-l)+1 << endl;
+  }
   return 0;
 }

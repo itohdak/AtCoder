@@ -13,25 +13,42 @@ const int inf = 1e9+7;
 const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
 
+ll modpow(ll a, ll N) {
+  ll ans = 1;
+  ll tmp = a;
+  while(N > 0) {
+    if(N % 2 == 1) {
+      ans *= tmp;
+      ans %= mod;
+    }
+    N /= 2;
+    tmp *= tmp;
+    tmp %= mod;
+  }
+  return ans;
+}
+ll modinv(ll a, ll m=mod) {
+  ll b = m, u = 1, v = 0;
+  while(b) {
+    ll t = a / b;
+    a -= t * b; swap(a, b);
+    u -= t * v; swap(u, v);
+  }
+  u %= m;
+  if(u < 0) u += m;
+  return u;
+}
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
   int N;
   cin >> N;
-  vector<string> S(N);
+  vector<ll> C(N);
+  rep(i, N) cin >> C[i];
+  sort(all(C), greater<ll>());
+  ll ans = 0;
   rep(i, N) {
-    cin >> S[i];
-    S[i] += 'o';
-  }
-  int ans = 0;
-  rep(i, N) {
-    for(int j=S[i].size()-1; j>0; j--) {
-      if(S[i][j] == 'o' && S[i][j-1] == '.') {
-        ans++;
-        rep(k, j) S[i][k] = 'o';
-        if(i+1<N) REP(k, j-1, S[i].size()) S[i+1][k] = 'o';
-      }
-    }
+    (ans += C[i] * modpow(4, N-1) % mod * (i+2) % mod) %= mod;
   }
   cout << ans << endl;
   return 0;

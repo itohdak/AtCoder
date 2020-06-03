@@ -11,27 +11,25 @@ using namespace std;
 #define all(v) v.begin(), v.end()
 const int inf = 1e9+7;
 const ll longinf = 1LL<<60;
-const ll mod = 1e9+7;
-const double pi = 3.14159265358979;
+const ll mod = 998244353;
 
 int main() {
-  int A, B, C;
-  cin >> A >> B >> C;
-  auto f = [&](double t) {
-    return A * t + B * sin(C * t * pi);
-  };
-  auto binary_search = [&]() {
-    double ng = 0, ok = 200;
-    while(abs(ok - ng) > 1e-11) {
-      double mid = (ok + ng) / 2;
-      if(f(mid) >= 100) ok = mid;
-      else ng = mid;
+  cin.tie(0);
+  ios::sync_with_stdio(false);
+  int N;
+  int S;
+  cin >> N >> S;
+  vector<int> A(N);
+  rep(i, N) cin >> A[i];
+  int mx = S+1;
+  vector<vector<ll>> dp(N+1, vector<ll>(mx));
+  dp[0][0] = 1;
+  rep(i, N) {
+    rep(j, mx) {
+      if(j+A[i]<mx) (dp[i+1][j+A[i]] += dp[i][j]) %= mod;
+      (dp[i+1][j] += dp[i][j] * 2) %= mod;
     }
-    return ok;
-  };
-  double ans = binary_search();
-  cout << fixed << setprecision(20);
-  // cout << f(ans) << endl;
-  cout << ans << endl;
+  }
+  cout << dp[N][S] << endl;
   return 0;
 }

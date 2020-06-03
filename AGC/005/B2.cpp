@@ -18,20 +18,27 @@ int main() {
   ios::sync_with_stdio(false);
   int N;
   cin >> N;
-  vector<string> S(N);
+  vector<int> A(N);
+  vector<int> pos(N+1);
   rep(i, N) {
-    cin >> S[i];
-    S[i] += 'o';
+    cin >> A[i];
+    pos[A[i]] = i;
   }
-  int ans = 0;
+  vector<int> mxl(N), mxr(N);
+  set<int> se;
+  se.insert(-1);
+  se.insert(N);
+  for(int i=1; i<=N; i++) {
+    int p = pos[i];
+    se.insert(p);
+    mxl[p] = *(--se.upper_bound(p-1))+1;
+    mxr[p] = *se.lower_bound(p+1)-1;
+    // cout << se << endl;
+  }
+  // cout << mxl << "\n" << mxr << endl;
+  ll ans = 0;
   rep(i, N) {
-    for(int j=S[i].size()-1; j>0; j--) {
-      if(S[i][j] == 'o' && S[i][j-1] == '.') {
-        ans++;
-        rep(k, j) S[i][k] = 'o';
-        if(i+1<N) REP(k, j-1, S[i].size()) S[i+1][k] = 'o';
-      }
-    }
+    ans += (ll)A[i] * (i-mxl[i]+1) * (mxr[i]-i+1);
   }
   cout << ans << endl;
   return 0;

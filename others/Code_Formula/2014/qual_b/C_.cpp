@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#include "/home/itohdak/AtCoder/000/print.hpp"
 using namespace std;
 #define ll long long
 #define REP(i,m,n) for(int i=(int)(m); i<(int)(n); i++)
@@ -18,16 +17,23 @@ int main() {
   cin >> A >> B;
   int N = A.size();
   string C = "", D = "";
-  vector<int> cnt(26);
+  vector<int> cntA(26), cntB(26);
   rep(i, N) {
-    cnt[A[i]-'a']++;
+    cntA[A[i]-'a']++;
+    cntB[B[i]-'a']++;
     if(A[i] != B[i]) {
       C += A[i];
       D += B[i];
     }
   }
   bool two = false;
-  rep(i, 26) if(cnt[i] >= 2) two = true;
+  rep(i, 26) {
+    if(cntA[i] >= 2) two = true;
+    if(cntA[i] != cntB[i]) {
+      cout << "NO" << endl;
+      return 0;
+    }
+  }
 
   function<bool(string&, string&, int)> dfs = [&](string& a, string& b, int rem) {
     if(rem == 0) return a == b;
@@ -42,16 +48,14 @@ int main() {
 
   if(C.size() > 6) {
     cout << "NO" << endl;
-  } else if(dfs(C, D, 1)) {
+  } else if(C.size() == 0) {
+    cout << (two ? "YES" : "NO") << endl;
+  } else if(C.size() == 2) {
     cout << "YES" << endl;
-  } else if(dfs(C, D, 3)) {
-    cout << "YES" << endl;
-  } else if(two) {
-    if(dfs(C, D, 0)) cout << "YES" << endl;
-    else if(dfs(C, D, 2)) cout << "YES" << endl;
-    else cout << "NO" << endl;
+  } else if(C.size() == 3) {
+    cout << (two ? "YES" : "NO") << endl;
   } else {
-    cout << "NO" << endl;
+    cout << (dfs(C, D, 3) ? "YES" : "NO") << endl;
   }
   return 0;
 }

@@ -16,46 +16,66 @@ const ll mod = 1e9+7;
 int main() {
   string S;
   cin >> S;
-  S += "-------";
-  int tame = 0;
-  int waitTime = 6;
-  vector<int> kaburin(waitTime);
-  vector<int> damageQueue(4);
-  int kaburinAvailable = 5;
-  int combo = 0;
-  int damage = 0;
-  int nextDamage = 0;
+  S += "------";
+  ll combo = 0;
+  int kaburinCnt = 5;
+  queue<int> kaburin;
+  rep(i, 6) kaburin.push(0);
+  int wait = 0;
+  ll ans = 0;
+  queue<ll> damage;
+  damage.push(0);
+  ll dtmp = 0;
+  int throwType = 0;
+  auto calcDamage = [&](ll base) {
+    return base + base*(combo/10*0.1);
+  };
   for(char c: S) {
-    kaburinAvailable += kaburin[0];
-    rep(i, waitTime-1) kaburin[i] = kaburin[i+1];
-    kaburin[waitTime-1] = 0;
-
-    damage += damageQueue[0];
-    if(damageQueue[0]) combo++;
-    rep(i, 3) damageQueue[i] = damageQueue[i+1];
-    damageQueue[2] = 0;
-
-    if(tame > 0) {
-      tame--;
-      if(tame == 0) {
-        kaburin[waitTime-1] = 3;
-        kaburinAvailable -= 3;
+    if(!wait) {
+      if(c == 'N' && kaburinCnt >= 1) {
+        wait = 1;
+        dtmp = calcDamage(10);
+        throwType = 1;
+      } else if(c == 'C' && kaburinCnt >= 3) {
+        wait = 3;
+        dtmp = calcDamage(50);
+        throwType = 2;
       }
-    } else if(c == 'N') {
-      if(kaburinAvailable >= 1) {
-        kaburin[waitTime-1] = 1;
-        kaburinAvailable -= 1;
-        damageQueue[0] = 10 * (1 + combo/10 * 0.1);
-      }
-    } else if(c == 'C') {
-      if(kaburinAvailable >= 3) {
-        tame = 3;
-        damageQueue[2] = 50 * (1 + combo/10 * 0.1);
+    }
+
+    if(wait) {
+      wait--;
+      if(wait == 0) {
+        if(throwType == 1) {
+          kaburinCnt -= 1;
+          kaburin.push(1);
+          damage.push(dtmp);
+          dtmp = 0;
+        } else {
+          kaburinCnt -= 3;
+          kaburin.push(3);
+          damage.push(dtmp);
+          dtmp = 0;
+        }
+      } else {
+        kaburin.push(0);
+        damage.push(0);
       }
     } else {
+      kaburin.push(0);
+      damage.push(0);
     }
-    cout << kaburinAvailable << ' ' << damage << ' ' << kaburin << endl;
+
+    if(damage.front()) {
+      combo++;
+      ans += damage.front();
+    }
+    damage.pop();
+    if(kaburin.front()) {
+      kaburinCnt += kaburin.front();
+    }
+    kaburin.pop();
   }
-  cout << damage << endl;
+  cout << ans << endl;
   return 0;
 }

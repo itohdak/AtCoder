@@ -17,26 +17,33 @@ int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
   int N;
-  string S;
-  cin >> N >> S;
-  vector<string> T(2);
-  T[0] = S.substr(0, N);
-  T[1] = S.substr(N, N);
-  reverse(all(T[1]));
-  vector<map<pair<string, string>, ll>> mp(2);
+  ll X;
+  cin >> N >> X;
+  vector<ll> W(N);
+  rep(i, N) cin >> W[i];
+  vector<vector<map<ll, ll>>> vmp(2, vector<map<ll, ll>>(2));
+  vector<map<ll, ll>> res(2);
   rep(n, 2) {
-    rep(i, 1<<N) {
-      vector<string> s(2);
-      rep(j, N) {
-        s[(i>>j)&1] += T[n][j];
+    vmp[n][0][0] = 1;
+    vmp[n][1][0] = 1;
+    int ib = (n==0 ? 0 : N/2);
+    int ie = (n==0 ? N/2: N);
+    REP(i, ib, ie) {
+      int id = i%2;
+      vmp[n][id].clear();
+      for(auto m: vmp[n][1-id]) {
+        vmp[n][id][m.first] += m.second;
+        vmp[n][id][m.first+W[i]] += m.second;
       }
-      mp[n][make_pair(s[0], s[1])]++;
+    }
+    for(auto m: vmp[n][(ie+1)%2]) {
+      res[n][m.first] = m.second;
     }
   }
-  // cout << mp[0] << endl << mp[1] << endl;
   ll ans = 0;
-  for(auto m: mp[0]) {
-    ans += m.second * mp[1][m.first];
+  for(auto m: res[0]) {
+    if(m.first > X) continue;
+    ans += m.second * res[1][X-m.first];
   }
   cout << ans << endl;
   return 0;
