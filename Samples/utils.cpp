@@ -17,13 +17,9 @@ ll modpow(ll a, ll N) {
   ll ans = 1;
   ll tmp = a;
   while(N > 0) {
-    if(N % 2 == 1) {
-      ans *= tmp;
-      ans %= mod;
-    }
+    if(N % 2 == 1) (ans *= tmp) %= mod;
+    (tmp *= tmp) %= mod;
     N /= 2;
-    tmp *= tmp;
-    tmp %= mod;
   }
   return ans;
 }
