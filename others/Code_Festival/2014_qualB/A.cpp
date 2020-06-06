@@ -14,5 +14,8 @@ const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
 
 int main() {
+  int A, B;
+  cin >> A >> B;
+  cout << max(A, B) << endl;
   return 0;
 }

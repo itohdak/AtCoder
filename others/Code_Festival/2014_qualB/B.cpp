@@ -14,5 +14,18 @@ const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
 
 int main() {
+  int N;
+  ll K;
+  cin >> N >> K;
+  vector<int> A(N);
+  rep(i, N) cin >> A[i];
+  ll sum = 0;
+  rep(i, N) {
+    sum += A[i];
+    if(sum >= K) {
+      cout << i+1 << endl;
+      break;
+    }
+  }
   return 0;
 }
