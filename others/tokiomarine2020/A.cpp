@@ -14,15 +14,9 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  int N;
-  cin >> N;
-  vector<int> H(N);
-  rep(i, N) cin >> H[i];
-  vector<int> buf;
-  rep(i, N) {
-    cout << buf.size() << endl;
-    while(!buf.empty() && buf.back() <= H[i]) buf.pop_back();
-    buf.push_back(H[i]);
-  }
+  string S;
+  cin >> S;
+  rep(i, 3) cout << S[i];
+  cout << endl;
   return 0;
 }

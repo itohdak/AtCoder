@@ -14,15 +14,18 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  int N;
-  cin >> N;
-  vector<int> H(N);
-  rep(i, N) cin >> H[i];
-  vector<int> buf;
-  rep(i, N) {
-    cout << buf.size() << endl;
-    while(!buf.empty() && buf.back() <= H[i]) buf.pop_back();
-    buf.push_back(H[i]);
+  int X, Y;
+  cin >> X >> Y;
+  rep(i, 101) {
+    rep(j, 101) {
+      int x = i+j;
+      int y = 2*i+4*j;
+      if(X == x && Y == y) {
+        cout << "Yes" << endl;
+        return 0;
+      }
+    }
   }
+  cout << "No" << endl;
   return 0;
 }

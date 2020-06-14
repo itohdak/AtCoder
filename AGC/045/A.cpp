@@ -11,18 +11,26 @@ const int inf = 1e9+7;
 const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
 
+void solve() {
+  int N;
+  cin >> N;
+  vector<ll> A(N);
+  rep(i, N) cin >> A[i];
+  string S;
+  cin >> S;
+  if(S.back() == '1') {
+    cout << 1 << endl;
+  } else {
+    
+  }
+}
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  int N;
-  cin >> N;
-  vector<int> H(N);
-  rep(i, N) cin >> H[i];
-  vector<int> buf;
-  rep(i, N) {
-    cout << buf.size() << endl;
-    while(!buf.empty() && buf.back() <= H[i]) buf.pop_back();
-    buf.push_back(H[i]);
+  int T;
+  cin >> T;
+  rep(t, T) {
+    solve();
   }
   return 0;
 }

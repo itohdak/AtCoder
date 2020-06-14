@@ -11,37 +11,33 @@ const int inf = 1e9+7;
 const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
 
-struct edge {
-  int to;
-  int score;
-};
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  int N, M, P, Q, R;
-  cin >> N >> M >> P >> Q >> R;
-  vector<vector<edge>> G(N);
-  rep(i, R) {
-    int x, y, z;
-    cin >> x >> y >> z;
+  int N, M;
+  cin >> N >> M;
+  vector<vector<int>> to(N);
+  vector<vector<int>> from(N);
+  rep(i, M) {
+    int x, y;
+    cin >> x >> y;
     x--; y--;
-    G[x].push_back({y, z});
+    to[x].push_back(y);
+    from[y].push_back(x);
   }
-  ll ans = 0;
+  vector<ll> dp(1<<N);
+  dp[0] = 1;
   rep(i, 1<<N) {
-    if(__builtin_popcount(i) != P) continue;
-    vector<ll> score(M);
     rep(j, N) {
-      if(i>>j&1) {
-        for(edge e: G[j]) {
-          score[e.to] += e.score;
+      if((i>>j)&1) {
+        bool ok = true;
+        for(int f: from[j]) {
+          if((i>>f)&1) ok = false;
         }
+        if(ok) dp[i] += dp[i&~(1<<j)];
       }
     }
-    // cout << i << ' ' << score << endl;
-    sort(all(score), greater<ll>());
-    ans = max(accumulate(score.begin(), score.begin()+Q, 0LL), ans);
   }
-  cout << ans << endl;
+  cout << dp[(1<<N)-1] << endl;
   return 0;
 }

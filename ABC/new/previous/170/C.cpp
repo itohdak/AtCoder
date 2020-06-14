@@ -14,15 +14,22 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  int N;
-  cin >> N;
-  vector<int> H(N);
-  rep(i, N) cin >> H[i];
-  vector<int> buf;
+  int X, N;
+  cin >> X >> N;
+  vector<int> P(N);
+  set<int> se;
   rep(i, N) {
-    cout << buf.size() << endl;
-    while(!buf.empty() && buf.back() <= H[i]) buf.pop_back();
-    buf.push_back(H[i]);
+    cin >> P[i];
+    se.insert(P[i]);
+  }
+  int r = X;
+  while(r <= 101 && se.count(r)) r++;
+  int l = X;
+  while(l >= 0 && se.count(l)) l--;
+  if(abs(r-X) >= abs(l-X)) {
+    cout << l << endl;
+  } else {
+    cout << r << endl;
   }
   return 0;
 }

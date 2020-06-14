@@ -14,15 +14,9 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  int N;
-  cin >> N;
-  vector<int> H(N);
-  rep(i, N) cin >> H[i];
-  vector<int> buf;
-  rep(i, N) {
-    cout << buf.size() << endl;
-    while(!buf.empty() && buf.back() <= H[i]) buf.pop_back();
-    buf.push_back(H[i]);
-  }
+  ll A, B, V, W, T;
+  cin >> A >> V >> B >> W >> T;
+  if(abs(A-B) > (V-W)*T) cout << "NO" << endl;
+  else cout << "YES" << endl;
   return 0;
 }

@@ -16,13 +16,21 @@ int main() {
   ios::sync_with_stdio(false);
   int N;
   cin >> N;
-  vector<int> H(N);
-  rep(i, N) cin >> H[i];
-  vector<int> buf;
+  vector<int> A(N);
+  map<int, int> mp;
   rep(i, N) {
-    cout << buf.size() << endl;
-    while(!buf.empty() && buf.back() <= H[i]) buf.pop_back();
-    buf.push_back(H[i]);
+    cin >> A[i];
+    mp[A[i]]++;
   }
+  sort(all(A));
+  vector<bool> num(1000005, true);
+  int ans = 0;
+  rep(i, N) {
+    if(num[A[i]]) {
+      if(mp[A[i]] == 1) ans++;
+      for(int j=1; A[i]*j<1000005; j++) num[A[i]*j] = false;
+    }
+  }
+  cout << ans << endl;
   return 0;
 }

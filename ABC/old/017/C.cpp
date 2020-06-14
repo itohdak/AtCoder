@@ -14,15 +14,24 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  int N;
-  cin >> N;
-  vector<int> H(N);
-  rep(i, N) cin >> H[i];
-  vector<int> buf;
+  int N, M;
+  cin >> N >> M;
+  vector<ll> sum(M+1);
+  ll sumAll = 0;
   rep(i, N) {
-    cout << buf.size() << endl;
-    while(!buf.empty() && buf.back() <= H[i]) buf.pop_back();
-    buf.push_back(H[i]);
+    int l, r, s;
+    cin >> l >> r >> s;
+    r++;
+    sum[l] += s;
+    sum[r] -= s;
+    sumAll += s;
   }
+  rep(i, M+1) sum[i+1] += sum[i];
+  // cout << sum << endl;
+  ll ans = 0;
+  rep(i, M+1) {
+    if(i) ans = max(sumAll-sum[i], ans);
+  }
+  cout << ans << endl;
   return 0;
 }
