@@ -5,8 +5,8 @@ const int inf = 1e9+7;
 const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
 
-int dx[] = {-1, 1, 0, 0};
-int dy[] = {0, 0, -1, 1};
+int dx[] = {1, 0, -1, 0};
+int dy[] = {0, -1, 0, 1};
 
 struct edge {
   int to;
@@ -27,18 +27,18 @@ void dijkstra(int s) {
   d[s] = 0;
   que.push(P(0, s));
 
-  while (!que.empty()) {
+  while(!que.empty()) {
     P p = que.top();
     que.pop();
     int v = p.second;
     if (d[v] < p.first) continue;
 
-    for (int i=0; i<(int)G[v].size(); ++i) {
+    for(int i=0; i<(int)G[v].size(); i++) {
       edge e = G[v][i];
-      if (d[e.to] > d[v] + e.cost) {
-	d[e.to] = d[v] + e.cost;
-	que.push(P(d[e.to], e.to));
-	par[e.to] = v;
+      if(d[e.to] > d[v] + e.cost) {
+        d[e.to] = d[v] + e.cost;
+        que.push(P(d[e.to], e.to));
+        par[e.to] = v;
       }
     }
   }
