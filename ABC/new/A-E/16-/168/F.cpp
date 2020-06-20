@@ -33,7 +33,7 @@ int main() {
     mpY[F[i]] = 0;
   }
   /* 座標圧縮 mpX[] */
-  vector<int> xs, ys;
+  vector<ll> xs, ys;
   for(auto& p: mpX) {
     p.second = xs.size();
     xs.push_back(p.first);
@@ -44,7 +44,7 @@ int main() {
   }
   int H = xs.size()*2;
   int W = ys.size()*2;
-  vector<vector<int>> dis(H, vector<int>(W));
+  vector<vector<ll>> dis(H, vector<ll>(W));
   rep(i, N) {
     ll a = mpX[A[i]]*2;
     ll b = mpX[B[i]]*2;
