@@ -13,8 +13,6 @@ struct edge {
   edge(int to, ll cost) : to(to), cost(cost) {}
 };
 
-vector<vector<edge> > G;
-
 class LCA {
 public:
   int V, logV;
@@ -30,7 +28,7 @@ public:
     this->parent = vector<vector<int> >(logV, vector<int>(V));
   }
 
-  void init(int v, int par, int d, int l) {
+  void init(int v, int par, int d, int l, vector<vector<edge>>& G) {
     depth[v] = d;       // rootからの深さ
     parent[0][v] = par; // 親
     len[v] = l;         // rootからの距離
@@ -38,7 +36,7 @@ public:
       int w = G[v][i].to;   // 子ノード
       int lc = G[v][i].cost; // 子ノードとの距離
       if(w == par) continue;
-      init(w, v, d+1, lc + l);
+      init(w, v, d+1, lc + l, G);
     }
   }
 
@@ -72,18 +70,18 @@ public:
 int main() {
   int N, M;
   cin >> N >> M;
-  G = vector<vector<edge> >(N);
+  vector<vector<edge>> G(N);
 
   rep(i, M) {
     int x, y, d;
     cin >> x >> y >> d;
     x--; y--;
-    G[x].push_back(edge(y, d));
-    G[y].push_back(edge(x, d));
+    G[x].push_back({y, d});
+    G[y].push_back({x, d});
   }
 
   LCA lca(N);
-  lca.init(0, -1, 0, 0);
+  lca.init(0, -1, 0, 0, G);
   lca.build();
 
   int Q;

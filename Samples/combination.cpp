@@ -7,7 +7,7 @@ const int inf = 1e9+7;
 const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
 
-#define MAX_N 200005
+#define MAX_N 2000005
 ll inv[MAX_N], fac[MAX_N], finv[MAX_N];
 void make() {
   fac[0] = fac[1] = 1;

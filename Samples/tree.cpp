@@ -13,7 +13,7 @@ struct edge {
   edge(int to, ll cost) : to(to), cost(cost) {}
 };
 
-vector<vector<edge> > G;
+vector<vector<edge>> G;
 vector<ll> D;
 void dfs(int tmp, int par, ll cost) {
   if(par != -1) {

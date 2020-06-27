@@ -9,21 +9,22 @@ const int inf = 1e9+7;
 const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
 
-struct Edge{
+struct edge {
   int to, cost;
-  Edge(int to, int cost) : to(to), cost(cost) {}
+  edge(int to, int cost) : to(to), cost(cost) {}
 };
-typedef vector<vector<Edge> > AdjList;
-AdjList graph;
+vector<vector<edge>> G;
 
 vector<ll> dist;
 vector<int> par;
-bool bellman_ford(int n, int s){ // n: number of edges, s: source
+bool bellman_ford(int n, int s) {
+  // n: number of vertices, s: source
   dist = vector<ll>(n, longinf);
+  par = vector<int>(n);
   dist[s] = 0;
   rep(i, n) {
     rep(v, n) {
-      for(auto e: graph[v]) {
+      for(auto e: G[v]) {
         if(dist[v] != longinf && dist[e.to] > dist[v] + e.cost) {
           dist[e.to] = dist[v] + e.cost;
           par[e.to] = v;
@@ -53,13 +54,13 @@ void print_cost(int n, int s) {
 int main(){
   int n, m;
   cin >> n >> m;
-  graph = AdjList(n);
+  G = vector<vector<edge>>(n);
   par = vector<int>(n, -1);
 
   rep(i, m) {
     int from, to, cost;
     cin >> from >> to >> cost;
-    graph[from].push_back(Edge(to, cost));
+    G[from].push_back(edge(to, cost));
   }
 
   rep(s, n) {

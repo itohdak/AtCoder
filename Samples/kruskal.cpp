@@ -71,13 +71,12 @@ struct edge {
   edge(int _u, int _v, ll _cost) : u(_u), v(_v), cost(_cost) {}
 };
 
-vector<edge> es;
 bool comp(const edge& e1, const edge& e2) {
   return e1.cost < e2.cost;
 }
 
-vector<pair<int, int> > conn;
-ll kruskal(int N) {
+vector<pair<int, int>> conn;
+ll kruskal(int N, vector<edge>& es) {
   sort(es.begin(), es.end(), comp);
   UnionFind uf(N);
   ll res = 0;

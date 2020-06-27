@@ -3,15 +3,12 @@ using namespace std;
 #define ll long long
 #define REP(i,m,n) for(int i=(int)(m); i<(int)(n); i++)
 #define rep(i,n) REP(i,0,n)
-#define REPL(i,m,n) for(ll i=(ll)(m); i<(ll)(n); i++)
-#define repl(i,n) REP(i,0,n)
 const int inf = 1e9+7;
 const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
 
 vector<ll> dist;
-vector<vector<ll> > cost;
-bool bellman_ford(int n, int s){
+bool bellman_ford(int n, int s, vector<vector<ll>>& cost) {
   dist = vector<ll>(n, longinf);
   dist[s] = 0;
   rep(i, n) {
@@ -37,13 +34,15 @@ void print_cost(int n, int s) {
 int main() {
   int n, m, s;
   cin >> n >> m >> s;
+  vector<vector<ll>> cost(n, vector<ll>(n));
   rep(i, m) {
-    int from, to, c;
+    int from, to;
+    ll c;
     cin >> from >> to >> c;
     cost[from][to] = c;
   }
 
-  bellman_ford(n, s);
+  bellman_ford(n, s, cost);
 
   print_cost(n, s);
 

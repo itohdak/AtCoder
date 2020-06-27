@@ -16,11 +16,9 @@ struct edge {
 
 using P = pair<ll, int>;
 
-int N;
-vector<vector<edge>> G;
 vector<ll> d;
 vector<int> par;
-void dijkstra(int s) {
+void dijkstra(int s, int N, vector<vector<edge>>& G) {
   priority_queue<P, vector<P>, greater<P> > que;
   d = vector<ll>(N, longinf);
   par = vector<int>(N, -1);
@@ -31,7 +29,7 @@ void dijkstra(int s) {
     P p = que.top();
     que.pop();
     int v = p.second;
-    if (d[v] < p.first) continue;
+    if(d[v] < p.first) continue;
 
     for(int i=0; i<(int)G[v].size(); i++) {
       edge e = G[v][i];
