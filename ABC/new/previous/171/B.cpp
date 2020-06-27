@@ -14,16 +14,11 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  int N;
-  cin >> N;
-  vector<string> W(N);
-  set<string> se = {"TAKAHASHIKUN", "Takahashikun", "takahashikun"};
-  int cnt = 0;
-  rep(i, N) {
-    cin >> W[i];
-    if(i == N-1) W[i].pop_back();
-    if(se.count(W[i])) cnt++;
-  }
-  cout << cnt << "\n";
+  int N, K;
+  cin >> N >> K;
+  vector<ll> P(N);
+  rep(i, N) cin >> P[i];
+  sort(all(P));
+  cout << accumulate(P.begin(), P.begin()+K, 0LL) << endl;
   return 0;
 }

@@ -16,14 +16,14 @@ int main() {
   ios::sync_with_stdio(false);
   int N;
   cin >> N;
-  vector<string> W(N);
-  set<string> se = {"TAKAHASHIKUN", "Takahashikun", "takahashikun"};
-  int cnt = 0;
+  vector<ll> A(N), sum(N+1);
+  rep(i, N) cin >> A[i];
+  sort(all(A));
+  int t = 0;
   rep(i, N) {
-    cin >> W[i];
-    if(i == N-1) W[i].pop_back();
-    if(se.count(W[i])) cnt++;
+    sum[i+1] = sum[i] + A[i];
+    if(i < N-1 && 2*sum[i+1] < A[i+1]) t = i+1;
   }
-  cout << cnt << "\n";
+  cout << N-t << "\n";
   return 0;
 }

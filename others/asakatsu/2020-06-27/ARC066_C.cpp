@@ -16,14 +16,19 @@ int main() {
   ios::sync_with_stdio(false);
   int N;
   cin >> N;
-  vector<string> W(N);
-  set<string> se = {"TAKAHASHIKUN", "Takahashikun", "takahashikun"};
-  int cnt = 0;
+  vector<int> A(N);
+  vector<int> cnt(N);
   rep(i, N) {
-    cin >> W[i];
-    if(i == N-1) W[i].pop_back();
-    if(se.count(W[i])) cnt++;
+    cin >> A[i];
+    cnt[A[i]]++;
   }
-  cout << cnt << "\n";
+  int begin = (N%2==0 ? 1 : 0);
+  ll ans = 1;
+  for(int i=begin; i<N; i+=2) {
+    if(i == 0 && cnt[i] != 1) ans = 0;
+    else if(i != 0 && cnt[i] != 2) ans = 0;
+    else (ans *= cnt[i]) %= mod;
+  }
+  cout << ans << "\n";
   return 0;
 }

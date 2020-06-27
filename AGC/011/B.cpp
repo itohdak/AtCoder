@@ -16,39 +16,28 @@ int main() {
   ios::sync_with_stdio(false);
   int N;
   cin >> N;
+  vector<ll> A(N), sum(N+1);
+  rep(i, N) cin >> A[i];
+  sort(all(A));
+  rep(i, N) sum[i+1] = sum[i] + A[i];
   auto bsearch = [&]() {
-    bool fin = false;
-    string s0;
-
-    auto query = [&](int k) {
-      cout << k << endl;
-      string s;
-      cin >> s;
-      return s;
-    };
     auto test = [&](int k) {
-      string s = query(k);
-      if(s == "Vacant") {
-        return fin = true;
-      } else if((k%2==1 && s!=s0) || (k%2==0 && s==s0)) {
-        return true;
-      } else {
-        return false;
+      ll i = 0;
+      ll curSum = A[k];
+      while(true) {
+        int j = upper_bound(all(A), 2*curSum) - begin(A);
+        if(i == j) return (i == N ? true : false);
+        curSum = sum[j];
+        i = j;
       }
     };
-
-    int ok = 0, ng = N;
-    s0 = query(0);
-    while(abs(ok-ng)>1) {
+    int ok = N-1, ng = -1;
+    while(ok-ng>1) {
       int mid = (ok+ng)/2;
-      if(test(mid)) {
-        if(fin) return;
-        ok = mid;
-      } else {
-        ng = mid;
-      }
+      (test(mid)?ok:ng) = mid;
     }
+    return N-ok;
   };
-  bsearch();
+  cout << bsearch() << "\n";
   return 0;
 }

@@ -14,16 +14,27 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  int N;
+  ll N;
   cin >> N;
-  vector<string> W(N);
-  set<string> se = {"TAKAHASHIKUN", "Takahashikun", "takahashikun"};
-  int cnt = 0;
-  rep(i, N) {
-    cin >> W[i];
-    if(i == N-1) W[i].pop_back();
-    if(se.count(W[i])) cnt++;
+  if(N <= 26) {
+    cout << char('a'+N-1) << endl;
+    return 0;
   }
-  cout << cnt << "\n";
+  ll tmp = 0;
+  ll pw = 1;
+  int d = 0;
+  while(N > tmp) {
+    pw *= 26;
+    tmp += pw;
+    d++;
+  }
+  string ans(d, ' ');
+  ll M = N-tmp/26;
+  rep(i, d) {
+    ans[i] = 'a' + M % 26;
+    M /= 26;
+  }
+  reverse(all(ans));
+  cout << ans << endl;
   return 0;
 }

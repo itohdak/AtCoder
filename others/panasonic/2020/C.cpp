@@ -14,16 +14,11 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  int N;
-  cin >> N;
-  vector<string> W(N);
-  set<string> se = {"TAKAHASHIKUN", "Takahashikun", "takahashikun"};
-  int cnt = 0;
-  rep(i, N) {
-    cin >> W[i];
-    if(i == N-1) W[i].pop_back();
-    if(se.count(W[i])) cnt++;
-  }
-  cout << cnt << "\n";
+  ll a, b, c;
+  cin >> a >> b >> c;
+  // a+b+2*sqrt(a*b) < c
+  // 2*sqrt(a*b) < c-a-b
+  // 4*a*b < (c-a-b)^2
+  cout << ((c-a-b>0 && (c-a-b)*(c-a-b)-4*a*b>0 ? "Yes" : "No")) << "\n";
   return 0;
 }

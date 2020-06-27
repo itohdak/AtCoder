@@ -14,16 +14,29 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  int N;
+  ll N;
   cin >> N;
-  vector<string> W(N);
-  set<string> se = {"TAKAHASHIKUN", "Takahashikun", "takahashikun"};
-  int cnt = 0;
-  rep(i, N) {
-    cin >> W[i];
-    if(i == N-1) W[i].pop_back();
-    if(se.count(W[i])) cnt++;
+  vector<ll> A(N);
+  rep(i, N) cin >> A[i];
+  ll sum = accumulate(all(A), 0LL);
+  ll m = N*(N+1)/2;
+  if(sum % m != 0) {
+    cout << "NO" << endl;
+  } else {
+    ll k = sum / m;
+    ll cnt = 0;
+    bool ok = true;
+    rep(i, N) {
+      int j = (i+1)%N;
+      ll sub = k-(A[j]-A[i]);
+      if(sub < 0 || sub % N != 0) {
+        ok = false;
+        break;
+      }
+      cnt += sub / N;
+    }
+    if(ok && cnt == k) cout << "YES" << endl;
+    else cout << "NO" << endl;
   }
-  cout << cnt << "\n";
   return 0;
 }

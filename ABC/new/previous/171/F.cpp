@@ -34,16 +34,29 @@ ll comb(ll n, ll r) {
   ans = (ans * finv[r]) % mod; // フェルマーの小定理
   return ans;
 }
+ll modpow(ll a, ll N) {
+  ll ans = 1;
+  ll tmp = a;
+  while(N > 0) {
+    if(N % 2 == 1) (ans *= tmp) %= mod;
+    (tmp *= tmp) %= mod;
+    N /= 2;
+  }
+  return ans;
+}
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
+  ll K;
+  string S;
+  cin >> K >> S;
+  ll N = S.size();
   make();
-  int H, W, A, B;
-  cin >> H >> W >> A >> B;
   ll ans = 0;
-  rep(i, H-A) {
-    (ans += comb(i+B-1, i) * comb(W-B-2+H-i, H-i-1) % mod) %= mod;
+  rep(i, K+1) {
+    ll k = K-i;
+    (ans += comb(k+N-1, N-1) * modpow(25, k) % mod * modpow(26, i) % mod) %= mod;
   }
-  cout << ans << "\n";
+  cout << ans << endl;
   return 0;
 }

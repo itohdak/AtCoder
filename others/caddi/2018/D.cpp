@@ -16,14 +16,12 @@ int main() {
   ios::sync_with_stdio(false);
   int N;
   cin >> N;
-  vector<string> W(N);
-  set<string> se = {"TAKAHASHIKUN", "Takahashikun", "takahashikun"};
-  int cnt = 0;
+  vector<ll> A(N);
+  int odd = 0;
   rep(i, N) {
-    cin >> W[i];
-    if(i == N-1) W[i].pop_back();
-    if(se.count(W[i])) cnt++;
+    cin >> A[i];
+    if(A[i]%2) odd++;
   }
-  cout << cnt << "\n";
+  cout << (odd==0 ? "second" : "first") << "\n";
   return 0;
 }

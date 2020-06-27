@@ -15,15 +15,29 @@ int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
   int N;
-  cin >> N;
-  vector<string> W(N);
-  set<string> se = {"TAKAHASHIKUN", "Takahashikun", "takahashikun"};
-  int cnt = 0;
-  rep(i, N) {
-    cin >> W[i];
-    if(i == N-1) W[i].pop_back();
-    if(se.count(W[i])) cnt++;
+  string S;
+  cin >> N >> S;
+  string comm = "ABXY";
+  int ans = inf;
+  rep(i, 4) rep(j, 4) rep(k, 4) rep(l, 4) {
+    string L(2, ' '), R(2, ' ');
+    L[0] = comm[i];
+    L[1] = comm[j];
+    R[0] = comm[k];
+    R[1] = comm[l];
+    int i = 0;
+    int cnt = 0;
+    while(i < N) {
+      if(i < N-1 && (S.substr(i, 2)==L || S.substr(i, 2)==R)) {
+        cnt++;
+        i += 2;
+      } else {
+        cnt++;
+        i++;
+      }
+    }
+    ans = min(cnt, ans);
   }
-  cout << cnt << "\n";
+  cout << ans << "\n";
   return 0;
 }

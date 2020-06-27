@@ -1,0 +1,1 @@
+../../others/asakatsu/2020-06-27/ARC066_C.cpp

@@ -14,16 +14,18 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  int N;
-  cin >> N;
-  vector<string> W(N);
-  set<string> se = {"TAKAHASHIKUN", "Takahashikun", "takahashikun"};
-  int cnt = 0;
-  rep(i, N) {
-    cin >> W[i];
-    if(i == N-1) W[i].pop_back();
-    if(se.count(W[i])) cnt++;
+  ll N, M;
+  cin >> N >> M;
+  ll ans = 0;
+  if(N == 1 && M == 1) {
+    ans = 1;
+  } else if(N == 1) {
+    ans = M - 2;
+  } else if(M == 1) {
+    ans = N - 2;
+  } else {
+    ans = N*M - (N+M-2)*2;
   }
-  cout << cnt << "\n";
+  cout << ans << "\n";
   return 0;
 }

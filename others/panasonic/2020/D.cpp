@@ -16,14 +16,23 @@ int main() {
   ios::sync_with_stdio(false);
   int N;
   cin >> N;
-  vector<string> W(N);
-  set<string> se = {"TAKAHASHIKUN", "Takahashikun", "takahashikun"};
-  int cnt = 0;
-  rep(i, N) {
-    cin >> W[i];
-    if(i == N-1) W[i].pop_back();
-    if(se.count(W[i])) cnt++;
-  }
-  cout << cnt << "\n";
+  vector<int> v;
+  vector<string> ans;
+  function<void(int, int)> dfs = [&](int cur, int mx) {
+    if(cur == N) {
+      // cout << v << endl;
+      string tmp(N, ' ');
+      rep(i, N) tmp[i] = 'a'+v[i];
+      ans.push_back(tmp);
+      return;
+    }
+    for(int i=0; i<=mx+1; i++) {
+      v.push_back(i);
+      dfs(cur+1, max(mx, i));
+      v.pop_back();
+    }
+  };
+  dfs(0, -1);
+  for(string s: ans) cout << s << "\n";
   return 0;
 }

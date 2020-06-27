@@ -11,35 +11,34 @@ const int inf = 1e9+7;
 const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
 
-void solve() {
-  int N;
-  cin >> N;
-  vector<ll> A(N);
-  rep(i, N) cin >> A[i];
-  string S;
-  cin >> S;
-  vector<ll> B;
-  set<ll> se;
-  se.insert(0);
-  rrep(i, N) {
-    ll a = A[i];
-    for(ll b: B) a = min(a^b, a);
-    if(S[i] == '0') {
-      B.emplace_back(a);
-    } else {
-      if(a != 0) {
-        cout << 1 << endl;
-        return;
-      }
+map<ll, int> res;
+void prime_factorization(ll N) {
+  if(N == 1 || N == 0) return;
+  ll n = N;
+  ll i = 2;
+  while(n >= i * i) {
+    while(n % i == 0) {
+      if(res.count(i)) res[i]++;
+      else res[i] = 1;
+      n /= i;
     }
+    if(i == 2) i++;
+    else i += 2;
   }
-  cout << 0 << endl;
+  if(n != 1) res[n]++;
 }
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  int T;
-  cin >> T;
-  rep(t, T) solve();
+  ll A, B;
+  cin >> A >> B;
+  for(ll i=B+1; i<=A; i++) {
+    prime_factorization(i);
+  }
+  ll ans = 1;
+  for(auto ele: res) {
+    (ans *= ele.second+1) %= mod;
+  }
+  cout << ans << "\n";
   return 0;
 }

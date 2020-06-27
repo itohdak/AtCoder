@@ -14,16 +14,22 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  int N;
+  ll N;
   cin >> N;
-  vector<string> W(N);
-  set<string> se = {"TAKAHASHIKUN", "Takahashikun", "takahashikun"};
-  int cnt = 0;
-  rep(i, N) {
-    cin >> W[i];
-    if(i == N-1) W[i].pop_back();
-    if(se.count(W[i])) cnt++;
-  }
-  cout << cnt << "\n";
+  int d = log10(N)+1;
+  int ans = 0;
+  int val[] = {7, 5, 3};
+  vector<int> cnt(3);
+  function<void(int, ll)> dfs = [&](int i, ll tmp) {
+    if(tmp <= N && cnt[0] && cnt[1] && cnt[2]) ans++;
+    if(i == d) return;
+    rep(j, 3) {
+      cnt[j]++;
+      dfs(i+1, tmp*10+val[j]);
+      cnt[j]--;
+    }
+  };
+  dfs(0, 0);
+  cout << ans << "\n";
   return 0;
 }

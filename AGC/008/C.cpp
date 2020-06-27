@@ -14,16 +14,14 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  int N;
-  cin >> N;
-  vector<string> W(N);
-  set<string> se = {"TAKAHASHIKUN", "Takahashikun", "takahashikun"};
-  int cnt = 0;
-  rep(i, N) {
-    cin >> W[i];
-    if(i == N-1) W[i].pop_back();
-    if(se.count(W[i])) cnt++;
+  vector<ll> A(7);
+  rep(i, 7) cin >> A[i];
+  ll ans = 0;
+  ans = A[1] + A[0]/2*2 + A[3]/2*2 + A[4]/2*2;
+  if(A[0] && A[3] && A[4]) {
+    ll tmp = 3 + A[1] + (A[0]-1)/2*2 + (A[3]-1)/2*2 + (A[4]-1)/2*2;
+    ans = max(tmp, ans);
   }
-  cout << cnt << "\n";
+  cout << ans << endl;
   return 0;
 }

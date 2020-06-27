@@ -16,14 +16,18 @@ int main() {
   ios::sync_with_stdio(false);
   int N;
   cin >> N;
-  vector<string> W(N);
-  set<string> se = {"TAKAHASHIKUN", "Takahashikun", "takahashikun"};
-  int cnt = 0;
+  vector<int> W(N);
+  set<int> se;
   rep(i, N) {
     cin >> W[i];
-    if(i == N-1) W[i].pop_back();
-    if(se.count(W[i])) cnt++;
+    auto itr = se.lower_bound(W[i]);
+    if(itr == se.end()) {
+      se.insert(W[i]);
+    } else {
+      se.erase(itr);
+      se.insert(W[i]);
+    }
   }
-  cout << cnt << "\n";
+  cout << se.size() << "\n";
   return 0;
 }
