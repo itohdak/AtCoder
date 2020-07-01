@@ -1,0 +1,1 @@
+/home/itohdak/AtCoder/others/kuji-katsu/2020-06-29/ARC073_D.cpp

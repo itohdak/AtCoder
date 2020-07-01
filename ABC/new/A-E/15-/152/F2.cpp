@@ -70,7 +70,6 @@ public:
     return parent[0][u];
   }
 };
-
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
@@ -88,9 +87,9 @@ int main() {
   LCA lca(N);
   lca.init(0, -1, 0, 0, G);
   lca.build();
-  vector<ll> V(N-1);
   int M;
   cin >> M;
+  vector<bitset<50>> onPath(M);
   rep(i, M) {
     int u, v;
     cin >> u >> v; u--; v--;
@@ -103,7 +102,7 @@ int main() {
       }
       int e = mp[{min(cur, lca.parent[0][cur]),
                   max(cur, lca.parent[0][cur])}];
-      V[e] |= 1<<i;
+      onPath[i].set(e);
       cur = lca.parent[0][cur];
     }
     cur = v;
@@ -114,20 +113,18 @@ int main() {
       }
       int e = mp[{min(cur, lca.parent[0][cur]),
                   max(cur, lca.parent[0][cur])}];
-      V[e] |= 1<<i;
+      onPath[i].set(e);
       cur = lca.parent[0][cur];
     }
   }
-  // cout << V << endl;
-  vector<vector<ll>> dp(N, vector<ll>(1<<M));
-  dp[0][0] = 1;
-  rep(i, N-1) {
-    rep(j, 1<<M) {
-      dp[i+1][j] += dp[i][j];
-      dp[i+1][j|V[i]] += dp[i][j];
-    }
+  ll ans = 0;
+  rep(i, 1<<M) {
+    int n = __builtin_popcount(i);
+    bitset<50> onPaths;
+    rep(j, M) if((i>>j)&1) onPaths |= onPath[j];
+    int m = onPaths.count();
+    ans += (n%2 ? -1 : 1) * (1LL<<(N-1-m));
   }
-  // cout << dp << endl;
-  cout << dp[N-1][(1<<M)-1] << "\n";
+  cout << ans << "\n";
   return 0;
 }

@@ -1,0 +1,1 @@
+../../../others/asakatsu/2020-06-29/codefestival_2015_qualB_B.cpp

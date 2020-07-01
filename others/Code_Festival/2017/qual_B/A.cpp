@@ -1,12 +1,1 @@
-#include <iostream>
-#include <cstdlib>
-#include <algorithm>
-#include <cmath>
-#include <vector>
-
-using namespace std;
-
-int main(){
-  return 0;
-}
-
+../../../asakatsu/2020-06-28/code_festival_2017_qualB_A.cpp

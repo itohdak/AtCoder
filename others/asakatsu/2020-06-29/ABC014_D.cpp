@@ -70,64 +70,29 @@ public:
     return parent[0][u];
   }
 };
-
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
   int N;
   cin >> N;
   vector<vector<edge>> G(N);
-  map<pair<int, int>, int> mp;
   rep(i, N-1) {
-    int a, b;
-    cin >> a >> b; a--; b--;
-    G[a].push_back({b, 1});
-    G[b].push_back({a, 1});
-    mp[{min(a, b), max(a, b)}] = i;
+    int x, y;
+    cin >> x >> y; x--; y--;
+    G[x].push_back({y, 1});
+    G[y].push_back({x, 1});
   }
   LCA lca(N);
   lca.init(0, -1, 0, 0, G);
   lca.build();
-  vector<ll> V(N-1);
-  int M;
-  cin >> M;
-  rep(i, M) {
-    int u, v;
-    cin >> u >> v; u--; v--;
-    int z = lca.query(u, v);
-    int cur = u;
-    while(cur != z) {
-      if(!mp.count({min(cur, lca.parent[0][cur]),
-              max(cur, lca.parent[0][cur])})) {
-        cout << "something wrong\n";
-      }
-      int e = mp[{min(cur, lca.parent[0][cur]),
-                  max(cur, lca.parent[0][cur])}];
-      V[e] |= 1<<i;
-      cur = lca.parent[0][cur];
-    }
-    cur = v;
-    while(cur != z) {
-      if(!mp.count({min(cur, lca.parent[0][cur]),
-              max(cur, lca.parent[0][cur])})) {
-        cout << "something wrong\n";
-      }
-      int e = mp[{min(cur, lca.parent[0][cur]),
-                  max(cur, lca.parent[0][cur])}];
-      V[e] |= 1<<i;
-      cur = lca.parent[0][cur];
-    }
+  int Q;
+  cin >> Q;
+  rep(q, Q) {
+    int x, y;
+    cin >> x >> y; x--; y--;
+    int z = lca.query(x, y);
+    int ret = lca.len[x] + lca.len[y] - 2 * lca.len[z];
+    cout << ret+1 << "\n";
   }
-  // cout << V << endl;
-  vector<vector<ll>> dp(N, vector<ll>(1<<M));
-  dp[0][0] = 1;
-  rep(i, N-1) {
-    rep(j, 1<<M) {
-      dp[i+1][j] += dp[i][j];
-      dp[i+1][j|V[i]] += dp[i][j];
-    }
-  }
-  // cout << dp << endl;
-  cout << dp[N-1][(1<<M)-1] << "\n";
   return 0;
 }

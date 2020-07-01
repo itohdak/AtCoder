@@ -1,0 +1,1 @@
+../../../others/asakatsu/2020-06-28/ABC030_C.cpp
