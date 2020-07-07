@@ -14,13 +14,19 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  string s; int k;
-  cin >> s >> k;
-  set<string> se;
-  rep(i, s.size()-k+1) {
-    // cout << s.substr(i, k) << "\n";
-    se.insert(s.substr(i, k));
+  int N; ll T;
+  cin >> N >> T;
+  vector<ll> A(N);
+  multiset<ll, greater<ll>> se;
+  rep(i, N) {
+    cin >> A[i];
+    se.insert(A[i]);
   }
-  cout << se.size() << "\n";
+  map<ll, int> mp;
+  rep(i, N) {
+    se.erase(se.find(A[i]));
+    mp[*se.begin()-A[i]]++;
+  }
+  cout << mp.rbegin()->second << "\n";
   return 0;
 }

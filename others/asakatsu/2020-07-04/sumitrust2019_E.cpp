@@ -14,13 +14,16 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  string s; int k;
-  cin >> s >> k;
-  set<string> se;
-  rep(i, s.size()-k+1) {
-    // cout << s.substr(i, k) << "\n";
-    se.insert(s.substr(i, k));
+  int n; cin >> n;
+  vector<ll> A(n); rep(i, n) cin >> A[i];
+  map<ll, int> cnt;
+  ll ans = 1;
+  cnt[-1] = 3;
+  rep(i, n) {
+    cnt[A[i]]++;
+    (ans *= cnt[A[i]-1]) %= mod;
+    cnt[A[i]-1]--;
   }
-  cout << se.size() << "\n";
+  cout << ans << "\n";
   return 0;
 }

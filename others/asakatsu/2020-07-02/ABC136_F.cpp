@@ -14,13 +14,26 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  string s; int k;
-  cin >> s >> k;
-  set<string> se;
-  rep(i, s.size()-k+1) {
-    // cout << s.substr(i, k) << "\n";
-    se.insert(s.substr(i, k));
+  int M;
+  ll K;
+  cin >> M >> K;
+  if(K == 0) {
+    rep(i, 1<<M) cout << i << ' ' << i << ' ';
+    cout << "\n";
+  } else {
+    ll xorall = 0;
+    rep(i, 1<<M) xorall ^= i;
+    rep(j, 1<<M) {
+      if(K == j && K == (xorall^j)) {
+        rep(i, 1<<M) if(i!=j) cout << i << ' ';
+        cout << j << ' ';
+        rrep(i, (1<<M)) if(i!=j) cout << i << ' ';
+        cout << j << ' ';
+        cout << "\n";
+        return 0;
+      }
+    }
+    cout << -1 << "\n";
   }
-  cout << se.size() << "\n";
   return 0;
 }

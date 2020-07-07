@@ -14,13 +14,14 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  string s; int k;
-  cin >> s >> k;
-  set<string> se;
-  rep(i, s.size()-k+1) {
-    // cout << s.substr(i, k) << "\n";
-    se.insert(s.substr(i, k));
-  }
-  cout << se.size() << "\n";
+  string s; cin >> s;
+  string t = s;
+  reverse(all(t));
+  int n = s.size();
+  string s1 = s.substr(0, (n-1)/2);
+  string s2 = s.substr((n-1)/2+1);
+  string t1 = s1, t2 = s2;
+  reverse(all(t1)), reverse(all(t2));
+  cout << (s==t&&s1==t1&&s2==t2 ? "Yes" : "No") << "\n";
   return 0;
 }

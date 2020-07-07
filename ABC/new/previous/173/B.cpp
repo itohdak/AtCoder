@@ -14,13 +14,19 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  string s; int k;
-  cin >> s >> k;
-  set<string> se;
-  rep(i, s.size()-k+1) {
-    // cout << s.substr(i, k) << "\n";
-    se.insert(s.substr(i, k));
+  int n; cin >> n;
+  vector<int> cnt(4);
+  vector<string> S(n);
+  rep(i, n) {
+    cin >> S[i];
+    if(S[i] == "AC") cnt[0]++;
+    else if(S[i] == "WA") cnt[1]++;
+    else if(S[i] == "TLE") cnt[2]++;
+    else cnt[3]++;
   }
-  cout << se.size() << "\n";
+  cout << "AC x " << cnt[0] << "\n";
+  cout << "WA x " << cnt[1] << "\n";
+  cout << "TLE x " << cnt[2] << "\n";
+  cout << "RE x " << cnt[3] << "\n";
   return 0;
 }

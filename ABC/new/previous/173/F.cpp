@@ -14,13 +14,15 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  string s; int k;
-  cin >> s >> k;
-  set<string> se;
-  rep(i, s.size()-k+1) {
-    // cout << s.substr(i, k) << "\n";
-    se.insert(s.substr(i, k));
+  ll n; cin >> n;
+  ll nv=0, ne=0;
+  rep(i, n-1) {
+    ll u, v;
+    cin >> u >> v;
+    u--; v--;
+    ne += (min(u, v)+1)*(n-max(u, v));
   }
-  cout << se.size() << "\n";
+  rep(i, n) nv += (i+1)*(n-i);
+  cout << nv - ne << "\n";
   return 0;
 }

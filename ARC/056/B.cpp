@@ -25,5 +25,23 @@ int main() {
     G[u].push_back(v);
     G[v].push_back(u);
   }
+  priority_queue<pair<int, int>> q;
+  vector<int> D(N);
+  D[S] = inf;
+  q.push({inf, S});
+  while(!q.empty()) {
+    auto p = q.top(); q.pop();
+    int v = p.second;
+    if(D[v] != p.first) continue;
+    for(int ne: G[v]) {
+      if(D[ne] < min(D[v], v)) {
+        D[ne] = min(D[v], v);
+        q.push({D[ne], ne});
+      }
+    }
+  }
+  rep(i, N) {
+    if(D[i] > i) cout << i+1 << "\n";
+  }
   return 0;
 }

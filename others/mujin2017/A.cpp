@@ -14,13 +14,20 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  string s; int k;
-  cin >> s >> k;
-  set<string> se;
-  rep(i, s.size()-k+1) {
-    // cout << s.substr(i, k) << "\n";
-    se.insert(s.substr(i, k));
+  int n; cin >> n;
+  vector<ll> X(n); rep(i, n) cin >> X[i];
+  deque<ll> q;
+  ll ans = 1;
+  rep(i, n) {
+    q.push_back(X[i]);
+    int m = q.size();
+    if(q.back() < 2*m-1) {
+      (ans *= m) %= mod;
+      q.pop_back();
+    }
   }
-  cout << se.size() << "\n";
+  int m = q.size();
+  for(int i=1; i<=m; i++) (ans *= i) %= mod;
+  cout << ans << "\n";
   return 0;
 }

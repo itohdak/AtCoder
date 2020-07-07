@@ -14,13 +14,13 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  string s; int k;
-  cin >> s >> k;
-  set<string> se;
-  rep(i, s.size()-k+1) {
-    // cout << s.substr(i, k) << "\n";
-    se.insert(s.substr(i, k));
+  int n, m; cin >> n >> m;
+  vector<ll> A(n); rep(i, n) cin >> A[i];
+  ll sum = accumulate(all(A), 0LL);
+  int cnt = 0;
+  rep(i, n) {
+    if(A[i] >= (sum+4*m-1)/(4*m)) cnt++;
   }
-  cout << se.size() << "\n";
+  cout << (cnt >= m ? "Yes" : "No") << "\n";
   return 0;
 }

@@ -14,13 +14,23 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  string s; int k;
-  cin >> s >> k;
-  set<string> se;
-  rep(i, s.size()-k+1) {
-    // cout << s.substr(i, k) << "\n";
-    se.insert(s.substr(i, k));
+  int N, M; cin >> N >> M;
+  vector<bool> done(N);
+  vector<int> penalty(N);
+  int ac = 0;
+  rep(i, M) {
+    int p; string S;
+    cin >> p >> S; p--;
+    if(!done[p]) {
+      if(S == "WA") penalty[p]++;
+      else {
+        done[p] = true;
+        ac++;
+      }
+    }
   }
-  cout << se.size() << "\n";
+  int pena = 0;
+  rep(i, N) pena += penalty[i] * done[i];
+  cout << ac << ' ' << pena << "\n";
   return 0;
 }

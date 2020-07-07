@@ -14,13 +14,20 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  string s; int k;
-  cin >> s >> k;
-  set<string> se;
-  rep(i, s.size()-k+1) {
-    // cout << s.substr(i, k) << "\n";
-    se.insert(s.substr(i, k));
+  int n; cin >> n;
+  vector<ll> A(n); rep(i, n) cin >> A[i];
+  vector<ll> B(n); rep(i, n) cin >> B[i];
+  ll sumA = accumulate(all(A), 0LL);
+  ll sumB = accumulate(all(B), 0LL);
+  ll m = sumB-sumA;
+  ll two=0, one=0;
+  rep(i, n) {
+    if(A[i] > B[i]) {
+      one += A[i]-B[i];
+    } else if(A[i] < B[i]) {
+      two += (B[i]-A[i]+1)/2;
+    }
   }
-  cout << se.size() << "\n";
+  cout << (two<=m ? "Yes" : "No") << "\n";
   return 0;
 }

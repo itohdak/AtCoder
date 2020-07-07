@@ -14,13 +14,15 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  string s; int k;
-  cin >> s >> k;
-  set<string> se;
-  rep(i, s.size()-k+1) {
-    // cout << s.substr(i, k) << "\n";
-    se.insert(s.substr(i, k));
+  int n; cin >> n;
+  vector<int> T(n), A(n);
+  rep(i, n) cin >> T[i] >> A[i];
+  ll prevT = T[0], prevA = A[0];
+  rep(i, n) {
+    ll mx = max({(prevT+T[i]-1)/T[i], (prevA+A[i]-1)/A[i]});
+    prevT = mx * T[i];
+    prevA = mx * A[i];
   }
-  cout << se.size() << "\n";
+  cout << prevT+prevA << "\n";
   return 0;
 }

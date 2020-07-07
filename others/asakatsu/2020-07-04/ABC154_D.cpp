@@ -14,13 +14,16 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  string s; int k;
-  cin >> s >> k;
-  set<string> se;
-  rep(i, s.size()-k+1) {
-    // cout << s.substr(i, k) << "\n";
-    se.insert(s.substr(i, k));
+  int n, k; cin >> n >> k;
+  vector<ll> P(n); rep(i, n) cin >> P[i];
+  cout << fixed << setprecision(20);
+  double sum = 0;
+  rep(i, k) sum += P[i]*(P[i]+1)/2/(double)P[i];
+  double mx = sum;
+  for(int i=k; i<n; i++) {
+    sum += P[i]*(P[i]+1)/2/(double)P[i] - P[i-k]*(P[i-k]+1)/2/(double)P[i-k];;
+    mx = max(sum, mx);
   }
-  cout << se.size() << "\n";
+  cout << mx << "\n";
   return 0;
 }

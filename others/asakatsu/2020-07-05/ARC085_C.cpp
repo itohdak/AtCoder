@@ -14,13 +14,13 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  string s; int k;
-  cin >> s >> k;
-  set<string> se;
-  rep(i, s.size()-k+1) {
-    // cout << s.substr(i, k) << "\n";
-    se.insert(s.substr(i, k));
-  }
-  cout << se.size() << "\n";
+  int n, m; cin >> n >> m;
+  ll p = pow(2, m);
+  ll t = 1900 * m + 100 * (n-m);
+  // S = 1*t*p + 2*t*(1-p)*p + 3*t*(1-p)^2*p + ...
+  // (1-p)S =    1*t*(1-p)*p + 2*t*(1-p)^2*p + 3*t*(1-p)^2*p + ...
+  // pS = 1*t*p + 1*t*(1-p)*p + 1*t*(1-p)^2*p + ...
+  // a0 = 1*t*p, r = (1-p)
+  cout << t*p << "\n";
   return 0;
 }

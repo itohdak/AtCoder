@@ -11,16 +11,29 @@ const int inf = 1e9+7;
 const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
 
+ll gcd(ll x, ll y) {
+  if(x > y)
+    return gcd(y, x);
+  else if(x == 0)
+    return y;
+  else
+    return gcd(y % x, x);
+}
+ll lcm(ll x, ll y) {
+  ll g = gcd(x, y);
+  return g * (x / g) * (y / g);
+}
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  string s; int k;
-  cin >> s >> k;
-  set<string> se;
-  rep(i, s.size()-k+1) {
-    // cout << s.substr(i, k) << "\n";
-    se.insert(s.substr(i, k));
+  int N;
+  cin >> N;
+  vector<ll> T(N);
+  ll ans = 1;
+  rep(i, N) {
+    cin >> T[i];
+    ans = lcm(ans, T[i]);
   }
-  cout << se.size() << "\n";
+  cout << ans << "\n";
   return 0;
 }

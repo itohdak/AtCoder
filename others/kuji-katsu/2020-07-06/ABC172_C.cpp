@@ -14,13 +14,25 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  string s; int k;
-  cin >> s >> k;
-  set<string> se;
-  rep(i, s.size()-k+1) {
-    // cout << s.substr(i, k) << "\n";
-    se.insert(s.substr(i, k));
+  int n, m;
+  cin >> n >> m;
+  ll k;
+  cin >> k;
+  vector<ll> A(n), B(m), sumA(n+1), sumB(m+1);
+  rep(i, n) {
+    cin >> A[i];
+    sumA[i+1] = sumA[i] + A[i];
   }
-  cout << se.size() << "\n";
+  rep(i, m) {
+    cin >> B[i];
+    sumB[i+1] = sumB[i] + B[i];
+  }
+  int ans = 0;
+  rep(i, n+1) {
+    if(sumA[i] > k) break;
+    int j = upper_bound(all(sumB), k-sumA[i])-begin(sumB)-1;
+    ans = max(i+j, ans);
+  }
+  cout << ans << "\n";
   return 0;
 }

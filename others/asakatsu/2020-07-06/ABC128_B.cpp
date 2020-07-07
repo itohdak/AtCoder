@@ -14,13 +14,18 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  string s; int k;
-  cin >> s >> k;
-  set<string> se;
-  rep(i, s.size()-k+1) {
-    // cout << s.substr(i, k) << "\n";
-    se.insert(s.substr(i, k));
+  int n; cin >> n;
+  vector<string> S(n);
+  vector<int> P(n);
+  vector<int> id(n);
+  rep(i, n) {
+    cin >> S[i] >> P[i];
+    id[i] = i;
   }
-  cout << se.size() << "\n";
+  sort(all(id), [&](int i, int j) {
+      if(S[i] == S[j]) return P[i] > P[j];
+      return S[i] < S[j];
+    });
+  rep(i, n) cout << id[i]+1 << "\n";
   return 0;
 }

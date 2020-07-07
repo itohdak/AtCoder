@@ -14,13 +14,20 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  string s; int k;
-  cin >> s >> k;
-  set<string> se;
-  rep(i, s.size()-k+1) {
-    // cout << s.substr(i, k) << "\n";
-    se.insert(s.substr(i, k));
+  int n, m; cin >> n >> m;
+  vector<int> cnt(n, 1);
+  vector<bool> red(n); red[0] = true;
+  rep(i, m) {
+    int x, y;
+    cin >> x >> y;
+    x--; y--;
+    if(red[x]) {
+      if(cnt[x] == 1) red[x] = false;
+      red[y] = true;
+    }
+    cnt[x]--;
+    cnt[y]++;
   }
-  cout << se.size() << "\n";
+  cout << accumulate(all(red), 0) << "\n";
   return 0;
 }

@@ -14,13 +14,13 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  string s; int k;
-  cin >> s >> k;
-  set<string> se;
-  rep(i, s.size()-k+1) {
-    // cout << s.substr(i, k) << "\n";
-    se.insert(s.substr(i, k));
+  ll n; cin >> n;
+  ll ans = 0;
+  ll m = n;
+  while(m > 0) {
+    ans += m%10;
+    m /= 10;
   }
-  cout << se.size() << "\n";
+  cout << (n%ans==0 ? "Yes" : "No") << "\n";
   return 0;
 }

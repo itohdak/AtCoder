@@ -14,13 +14,23 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  string s; int k;
-  cin >> s >> k;
-  set<string> se;
-  rep(i, s.size()-k+1) {
-    // cout << s.substr(i, k) << "\n";
-    se.insert(s.substr(i, k));
-  }
-  cout << se.size() << "\n";
+  int n, k; cin >> n >> k;
+  vector<vector<int>> T(n, vector<int>(k));
+  rep(i, n) rep(j, k) cin >> T[i][j];
+  ll val = 0;
+  bool found = false;
+  auto dfs = [&](auto dfs, int cur) -> void {
+    if(cur == n) {
+      if(val==0) found=true;
+      return;
+    }
+    rep(i, k) {
+      val ^= T[cur][i];
+      dfs(dfs, cur+1);
+      val ^= T[cur][i];
+    }
+  };
+  dfs(dfs, 0);
+  cout << (found ? "Found" : "Nothing") << "\n";
   return 0;
 }

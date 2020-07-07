@@ -1,0 +1,1 @@
+/home/itohdak/AtCoder/others/asakatsu/2020-07-05/ARC081_D.cpp

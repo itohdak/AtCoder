@@ -14,13 +14,11 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  string s; int k;
-  cin >> s >> k;
-  set<string> se;
-  rep(i, s.size()-k+1) {
-    // cout << s.substr(i, k) << "\n";
-    se.insert(s.substr(i, k));
-  }
-  cout << se.size() << "\n";
+  ll n, a, b; cin >> n >> a >> b;
+  // a a a ... b
+  // b b b ... b
+  if(a > b) cout << 0 << "\n";
+  else if(n==1 && a!=b) cout << 0 << "\n";
+  else cout << b*(n-1)+a-(a*(n-1)+b)+1 << "\n";
   return 0;
 }

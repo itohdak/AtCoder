@@ -14,13 +14,25 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  string s; int k;
-  cin >> s >> k;
-  set<string> se;
-  rep(i, s.size()-k+1) {
-    // cout << s.substr(i, k) << "\n";
-    se.insert(s.substr(i, k));
+  string S;
+  cin >> S;
+  int N = S.size();
+  vector<int> num(N+1);
+  rep(i, N) num[i] = S[N-1-i]-'0';
+  ll ans = accumulate(all(num), 0LL);
+  rep(i, N+1) {
+    if(num[i]>9) {
+      num[i]%=10;
+      num[i+1]++;
+      ans++;
+    }
+    if(num[i]>5) {
+      ans += (10-num[i])-num[i]+1;
+      num[i] = 0;
+      num[i+1]++;
+    }
   }
-  cout << se.size() << "\n";
+  cout << num << endl;
+  cout << ans << "\n";
   return 0;
 }
