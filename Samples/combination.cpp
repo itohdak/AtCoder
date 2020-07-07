@@ -26,6 +26,13 @@ ll perm(ll n, ll r) {
 }
 ll comb(ll n, ll r) {
   ll ans = 1;
+  ans = perm(n, r);
+  ans = (ans * finv[r]) % mod;
+  return ans;
+}
+
+ll comb_desc(ll n, ll r) {
+  ll ans = 1;
   ans = perm(n, r); // n * (n-1) * ... * (n-r+1)
   ans = (ans * finv[r]) % mod; // フェルマーの小定理
   return ans;

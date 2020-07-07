@@ -19,7 +19,7 @@ using P = pair<ll, int>;
 vector<ll> d;
 vector<int> par;
 void dijkstra(int s, int N, vector<vector<edge>>& G) {
-  priority_queue<P, vector<P>, greater<P> > que;
+  priority_queue<P, vector<P>, greater<P>> que;
   d = vector<ll>(N, longinf);
   par = vector<int>(N, -1);
   d[s] = 0;

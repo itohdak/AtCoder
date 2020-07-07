@@ -38,7 +38,7 @@ int factorial(int N, int buf=1) {
 
 
 /*
-  最大公約数
+  最大公約数, 最小公倍数
 */
 ll gcd(ll x, ll y) {
   if(x > y)
@@ -48,9 +48,6 @@ ll gcd(ll x, ll y) {
   else
     return gcd(y % x, x);
 }
-/*
-  最小公倍数
-*/
 ll lcm(ll x, ll y) {
   ll g = gcd(x, y);
   return g * (x / g) * (y / g);
