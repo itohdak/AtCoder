@@ -12,7 +12,7 @@ const int inf = 1e9+7;
 const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
 
-#define MAX_N 100000
+#define MAX_N 200050
 
 class UnionFind
 {
