@@ -14,16 +14,12 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  int N, M;
-  cin >> N >> M;
-  vector<vector<int>> G(N);
-  rep(i, M) {
-    int a, b;
-    cin >> a >> b;
-    --a; --b;
-    G[a].push_back(b);
-    G[b].push_back(a);
+  int n; cin >> n;
+  vector<int> A(n); rep(i, n) cin >> A[i];
+  int cnt = 0;
+  rep(i, n) {
+    if((i+1)%2==1 && A[i]%2==1) cnt++;
   }
-  
+  cout << cnt << "\n";
   return 0;
 }

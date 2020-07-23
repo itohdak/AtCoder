@@ -2,97 +2,101 @@
 #include "/home/itohdak/AtCoder/000/print.hpp"
 using namespace std;
 #define ll long long
+#define ld long double
 #define REP(i,m,n) for(int i=(int)(m); i<(int)(n); i++)
 #define rep(i,n) REP(i,0,n)
 #define RREP(i,m,n) for(int i=(int)(m); i>=(int)(n); i--)
 #define rrep(i,n) RREP(i,n-1,0)
-#define REPL(i,m,n) for(ll i=(ll)(m); i<(ll)(n); i++)
-#define repl(i,n) REPL(i,0,n)
 #define all(v) v.begin(), v.end()
 const int inf = 1e9+7;
 const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
+const ld eps = 1e-10;
 
+#define vec point
 struct point {
-  double x;
-  double y;
-  point(double x, double y): x(x), y(y) {}
+  ld x, y;
+  point(ld x, ld y) : x(x), y(y) {}
+  point operator+(const point& rhs) const {
+    return point(x+rhs.x, y+rhs.y);
+  }
+  point operator-(const point& rhs) const {
+    return point(x-rhs.x, y-rhs.y);
+  }
+  point operator*(const ld& d) const {
+    return point(x*d, y*d);
+  }
+  point operator/(const ld& d) const {
+    assert(d != 0);
+    return point(x/d, y/d);
+  }
+  ld length() {
+    return sqrt(x*x+y*y);
+  }
+  point perpendicular() {
+    ld d = this->length();
+    assert(d != 0);
+    return point(y, -x) / d;
+  }
 };
-double calc_dist(point p1, point p2) {
-  double dx = p1.x - p2.x;
-  double dy = p1.y - p2.y;
-  return sqrt(dx*dx+dy*dy);
+point midpoint(point p1, point p2) {
+  return (p1+p2)/2;
 }
-point operator+(point p1, point p2) {
-  return point(p1.x+p2.x, p1.y+p2.y);
-}
-point operator/(point p, double d) {
-  return point(p.x/d, p.y/d);
-}
-point operator*(point p, double d) {
-  return point(d*p.x, d*p.y);
-}
-point operator*(double d, point p) {
-  return point(d*p.x, p.y);
-}
-
-int N;
-vector<point> P;
-vector<point> intersection(point p1, point p2, double r) {
-  point mid = (p1+p2)/2.0; // center
-  point diff = point((p1.y-p2.y)/2, -(p1.x-p2.x)/2); // slope
-  double dist = calc_dist(p1, p2); // distance
-  vector<point> ret; // intersection
-  if(dist/2 > r) {
-  } else if(dist/2 == r) {
-    ret.push_back(mid);
+struct circle {
+  point center;
+  ld r;
+  circle(ld cx=0, ld cy=0, ld r=1) : center(point(cx, cy)), r(r) {}
+  circle(point center, ld r) : center(center), r(r) {}
+};
+vector<point> intersection(circle c1, circle c2) { // c1.r == c2.r
+  ld r = c1.r;
+  point mid = midpoint(c1.center, c2.center);
+  vec dir = c2.center - c1.center;
+  ld dh = dir.length();
+  vec perp = dir.perpendicular();
+  ld dv = sqrt(r*r-(dh/2)*(dh/2));
+  vector<point> ret;
+  if(dh > r*2+eps) { // no intersection
   } else {
-    double h = sqrt(1-dist*dist/(4*r*r));
-    ret.push_back(mid+(h*diff));
-    ret.push_back(mid+(-h*diff));
+    ret.push_back(mid+perp*dv);
+    ret.push_back(mid-perp*dv);
   }
   return ret;
 }
-
-bool test(double k) {
-  auto intr = intersection(P[0], P[1], k);
-  if(intr.size() != 0) {
-    for(auto i: intr) {
-      bool ret = true;
-      rep(j, N) {
-        if(calc_dist(i, P[j]) > k) {
-          ret = false;
-          break;
-        }
-      }
-      if(!ret) continue;
-      return true;
-    }
-  }
-  return false;
-}
-
-double binary_search(double n) {
-  double ng = 0, ok = n;
-  rep(i, 50) {
-    double mid = (ok + ng) / 2;
-    if(test(mid)) ok = mid;
-    else ng = mid;
-  }
-  return ok;
-}
-
 int main() {
-  cin >> N;
-  P = vector<point>();
-  rep(i, N) {
-    int x, y;
-    cin >> x >> y;
-    P.push_back(point(x, y));
-  }
-  double mx = 0;
-  rep(i, N) rep(j, N) mx = max(calc_dist(P[i], P[j]), mx);
-  double ans = binary_search(mx/2);
-  cout << setprecision(20) << ans << endl;
+  cin.tie(0);
+  ios::sync_with_stdio(false);
+  cout << fixed << setprecision(10);
+  int n; cin >> n;
+  vector<pair<ld, ld>> P(n);
+  rep(i, n) cin >> P[i].first >> P[i].second;
+  auto test = [&](ld r) {
+    vector<circle> C(n);
+    rep(i, n) C[i] = circle(P[i].first, P[i].second, r);
+    bool ret = false;
+    rep(i, n) REP(j, i+1, n) {
+      auto inter = intersection(C[i], C[j]);
+      if(inter.size() == 0) continue;
+      for(auto p: inter) {
+        // cerr << p.x << ' ' << p.y << "\n";
+        bool ok = true;
+        rep(k, n) {
+          if((p-C[k].center).length() > r+eps) ok = false;
+        }
+        if(ok) ret = true;
+      }
+    }
+    return ret;
+  };
+  auto bsearch = [&]() {
+    ld ok = 2000, ng = 0;
+    rep(i, 50) {
+      ld mid = (ok+ng)/2;
+      if(test(mid)) ok = mid;
+      else ng = mid;
+    }
+    return ok;
+  };
+  cout << bsearch() << "\n";
   return 0;
 }

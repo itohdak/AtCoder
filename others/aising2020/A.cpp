@@ -14,16 +14,8 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  int N, M;
-  cin >> N >> M;
-  vector<vector<int>> G(N);
-  rep(i, M) {
-    int a, b;
-    cin >> a >> b;
-    --a; --b;
-    G[a].push_back(b);
-    G[b].push_back(a);
-  }
-  
+  int l, r, d;
+  cin >> l >> r >> d;
+  cout << r/d - (l-1)/d << "\n";
   return 0;
 }

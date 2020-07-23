@@ -14,16 +14,19 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  int N, M;
-  cin >> N >> M;
-  vector<vector<int>> G(N);
-  rep(i, M) {
-    int a, b;
-    cin >> a >> b;
-    --a; --b;
-    G[a].push_back(b);
-    G[b].push_back(a);
-  }
-  
+  ll r, b, x, y;
+  cin >> r >> b >> x >> y;
+  auto bsearch = [&]() {
+    auto test = [&](ll k) {
+      return r-k>=0 && b-k>=0 && (r-k)/(x-1)+(b-k)/(y-1)>=k;
+    };
+    ll ok=0, ng=longinf;
+    while(ng-ok>1) {
+      ll mid = (ok+ng)/2;
+      (test(mid) ? ok : ng) = mid;
+    }
+    return ok;
+  };
+  cout << bsearch() << "\n";
   return 0;
 }

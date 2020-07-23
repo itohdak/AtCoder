@@ -14,16 +14,24 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  int N, M;
-  cin >> N >> M;
-  vector<vector<int>> G(N);
-  rep(i, M) {
-    int a, b;
-    cin >> a >> b;
-    --a; --b;
-    G[a].push_back(b);
-    G[b].push_back(a);
+  int n, k; cin >> n >> k;
+  string s; cin >> s;
+  map<vector<int>, vector<int>> mp;
+  vector<int> cur(26);
+  rep(i, n) {
+    if(i < k) cur[s[i]-'a']++;
+    else {
+      mp[cur].push_back(i);
+      cur[s[i-k]-'a']--;
+      cur[s[i]-'a']++;
+    }
   }
-  
+  mp[cur].push_back(n);
+  bool ok = false;
+  for(auto& ele: mp) {
+    auto& v = ele.second;
+    if(v.back()-v.front() >= k) ok = true;
+  }
+  cout << (ok ? "YES" : "NO") << "\n";
   return 0;
 }

@@ -14,16 +14,16 @@ const ll mod = 1e9+7;
 int main() {
   cin.tie(0);
   ios::sync_with_stdio(false);
-  int N, M;
-  cin >> N >> M;
-  vector<vector<int>> G(N);
-  rep(i, M) {
-    int a, b;
-    cin >> a >> b;
-    --a; --b;
-    G[a].push_back(b);
-    G[b].push_back(a);
+  int n; cin >> n;
+  vector<int> ans(n+1);
+  for(int x=1; x<=100; x++) {
+    for(int y=1; y<=100; y++) {
+      for(int z=1; z<=100; z++) {
+        ll val = x*x + y*y + z*z + x*y + y*z + z*x;
+        if(val <= n) ans[val]++;
+      }
+    }
   }
-  
+  for(int i=1; i<=n; i++) cout << ans[i] << "\n";
   return 0;
 }
