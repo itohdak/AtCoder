@@ -18,7 +18,7 @@ vector<int> Tpl;
 /* topological sort */
 vector<bool> vis;
 void dfs(int cur) {
-  if(!vis[cur]) return;
+  if(vis[cur]) return;
   vis[cur] = true;
   for(int ne: G[cur]) dfs(ne);
   Tpl.push_back(cur);

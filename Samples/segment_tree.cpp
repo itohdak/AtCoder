@@ -60,4 +60,4 @@ struct SegmentTree {
     return seg[k + sz];
   }
 };
-// SegmentTree<int> seg(N, [](int a, int b) { return min(a, b); }, INT_MAX);
+// SegmentTree<int> seg(n, [](int a, int b) { return min(a, b); }, INT_MAX);
