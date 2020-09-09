@@ -19,7 +19,7 @@ $ mkdir_atcoder [folder_name]
 ```
 # remove comment outs and local-depended include line
 function cat_atcoder () {
-    cat $1 | grep -v "^ *//" | grep -v "#include \"/home/itohdak/AtCoder/000/print.hpp\""
+    cat $1 | grep -v "^ *//" | grep -v "#include \"/home/itohdak/AtCoder/templates/print.hpp\""
 }
 
 # copy to clipboard
