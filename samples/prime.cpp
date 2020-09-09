@@ -34,20 +34,19 @@ bool is_prime(const unsigned n) {
 /*
   エラトステネスの篩
 */
-bool arr[1000000000];
+bool arr[1000000];
 vector<ll> primes;
 void Eratosthenes(int N) {
   for(int i=0; i<N; i++) {
     arr[i] = true;
   }
-  for(int i=2; i<sqrt(N); i++) {
+  for(int i=2; i<N; i++) {
     if(arr[i]) {
       for(int j=0; i*(j+2)<N; j++) {
         arr[i*(j+2)] = false;
       }
     }
   }
-
   for(int i=2; i<N; i++) {
     if(arr[i]) {
       primes.push_back(i);
@@ -72,7 +71,7 @@ void prime_factorization(ll N, map<ll, int>& res) {
     if(i == 2) i++;
     else i += 2;
   }
-  if(n != 1) res[n] = 1;
+  if(n != 1) res[n]++;
 }
 
 /*
