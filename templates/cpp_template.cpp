@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 #include "/home/itohdak/AtCoder/templates/print.hpp"
 using namespace std;
+// #include <atcoder/all>
+// using namespace atcoder;
 #define ll long long
 #define ld long double
 #define REP(i,m,n) for(int i=(int)(m); i<(int)(n); i++)
