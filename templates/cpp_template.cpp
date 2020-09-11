@@ -14,6 +14,7 @@ using namespace std;
 const int inf = 1e9+7;
 const ll longinf = 1LL<<60;
 const ll mod = 1e9+7;
+const ll mod2 = 998244353;
 const ld eps = 1e-10;
 template<typename T1, typename T2> inline void chmin(T1 &a, T2 b){if(a>b) a=b;}
 template<typename T1, typename T2> inline void chmax(T1 &a, T2 b){if(a<b) a=b;}
