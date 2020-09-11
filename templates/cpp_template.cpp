@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-#include "/home/itohdak/AtCoder/templates/print.hpp"
+#include <print.hpp>
 using namespace std;
 // #include <atcoder/all>
 // using namespace atcoder;

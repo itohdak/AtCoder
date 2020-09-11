@@ -10,24 +10,32 @@
 ```
 $ git clone https://github.com/itohdak/AtCoder.git
 $ cd AtCoder
-$ source setup.sh # this will overwrite ~/.bashrc to define function "mkdir_atcoder"
+
+# define function "mkdir_atcoder" in .bashrc
+# add AtCoder/include to $CPATH in .bashrc
+$ source setup.sh
+$ exec bash
+
 $ mkdir_atcoder [folder_name]
 # you can see a new folder named [folder_name] which includes sample cpp files
 ```
 ## Utils
-### Bash Codes
-```
-# remove comment outs and local-depended include line
-function cat_atcoder () {
-    cat $1 | grep -v "^ *//" | grep -v "#include \"/home/itohdak/AtCoder/templates/print.hpp\""
-}
+### pbcopy
+You can copy your codes into the clipboard and paste them with Ctrl-V
 
+#### How to enable
+Add following lines to `~/.bashrc`
+```
 # copy to clipboard
 alias pbcopy='xsel --clipboard --input'
 ```
-### Sample Usage
+Before using it, you may first need to install `xsel` with a following command
 ```
-$ cat_atcoder A.cpp | pbcopy
+$ sudo apt install xsel
+```
+#### Sample Usage
+```
+$ cat A.cpp | pbcopy
+# Ctrl-V on where you like to paste the codes
+```
 
-# You can paste the copied codes with Ctrl-V
-```

@@ -2,7 +2,7 @@
 
 func_name=mkdir_atcoder
 if type $func_name >/dev/null 2>&1; then
-    echo "function $func_name already defined"
+    echo "function $func_name already defined. skipped"
 else
     echo -ne "
 function $func_name () {
@@ -15,5 +15,15 @@ function $func_name () {
     cp $PWD/templates/A.cpp \$PWD/\$1/F.cpp
 }
 " >> ~/.bashrc
-    exec bash
+    echo "defined $func_name function in .bashrc"
+fi
+
+if [[ ":${CPATH}:" == *:"$PWD/include":* ]]; then
+    echo "CPATH already includes $PWD/include. skipped"
+else
+    echo -ne "
+# AtCoder
+export CPATH=\$CPATH:$PWD/include
+" >> ~/.bashrc
+    echo "added $PWD/include to \$CPATH in .bashrc"
 fi
