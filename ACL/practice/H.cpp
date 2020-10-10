@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+#include "/home/itohdak/AtCoder/templates/print.hpp"
+using namespace std;
+#include <atcoder/all>
+using namespace atcoder;
+#define ll long long
+#define ld long double
+#define REP(i,m,n) for(int i=(int)(m); i<(int)(n); i++)
+#define rep(i,n) REP(i,0,n)
+#define RREP(i,m,n) for(int i=(int)(m); i>=(int)(n); i--)
+#define rrep(i,n) RREP(i,(n)-1,0)
+#define all(v) v.begin(), v.end()
+#define endk '\n'
+const int inf = 1e9+7;
+const ll longinf = 1LL<<60;
+const ll mod = 1e9+7;
+const ld eps = 1e-10;
+template<typename T1, typename T2> inline void chmin(T1 &a, T2 b){if(a>b) a=b;}
+template<typename T1, typename T2> inline void chmax(T1 &a, T2 b){if(a<b) a=b;}
+
+int main() {
+  cin.tie(0);
+  ios::sync_with_stdio(false);
+  int n; ll d; cin >> n >> d;
+  vector<vector<ll>> X(2, vector<ll>(n));
+  rep(i, n) cin >> X[0][i] >> X[1][i];
+  two_sat ts(n);
+  rep(i, n) REP(j, i+1, n) {
+    rep(k, 2) rep(l, 2) {
+      if(abs(X[k][i]-X[l][j])<d) {
+        ts.add_clause(i, !k, j, !l);
+      }
+    }
+  }
+  if(!ts.satisfiable()) {
+    cout << "No" << endk;
+  } else {
+    cout << "Yes" << endk;
+    auto ans = ts.answer();
+    rep(i, n) cout << X[ans[i]][i] << endk;
+  }
+  return 0;
+}
