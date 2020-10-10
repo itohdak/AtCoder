@@ -1,6 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
-#define ll long long
+#include "header.hpp"
 
 struct data {
   ll a;
@@ -12,7 +10,6 @@ struct data {
 /*
   冪乗(pow(a, N); O(logN))
 */
-const ll mod = 1e9+7;
 ll modpow(ll a, ll N) {
   ll ans = 1;
   ll tmp = a;
@@ -51,6 +48,22 @@ ll gcd(ll x, ll y) {
 ll lcm(ll x, ll y) {
   ll g = gcd(x, y);
   return g * (x / g) * (y / g);
+}
+
+/*
+  拡張GCD
+  不定方程式 a * x + b * y == gcd(a, b)
+  の解を (x, y) に格納する
+*/
+ll extGCD(ll a, ll b, ll &x, ll &y) {
+  if(b == 0) {
+    x = 1;
+    y = 0;
+    return a;
+  }
+  ll d = extGCD(b, a%b, y, x);
+  y -= a/b * x;
+  return d;
 }
 
 /*

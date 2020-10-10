@@ -1,7 +1,4 @@
-#include<bits/stdc++.h>
-using namespace std;
-#define ll long long
-const int inf = 1e9+7;
+#include "header.hpp"
 
 int N;
 vector<vector<int>> G;

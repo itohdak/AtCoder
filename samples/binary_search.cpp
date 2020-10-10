@@ -1,7 +1,4 @@
-#include <bits/stdc++.h>
-
-using namespace std;
-#define ll long long
+#include "header.hpp"
 
 vector<ll> v;
 bool test(ll k, ll t) {

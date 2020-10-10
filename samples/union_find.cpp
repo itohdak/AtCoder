@@ -1,6 +1,4 @@
-#include <iostream>
-
-using namespace std;
+#include "header.hpp"
 
 #define MAX_N 200005
 

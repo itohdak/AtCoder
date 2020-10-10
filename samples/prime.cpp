@@ -1,16 +1,25 @@
-#include <bits/stdc++.h>
-using namespace std;
-#define ll long long
-#define REP(i,m,n) for(int i=(int)(m); i<(int)(n); i++)
-#define rep(i,n) REP(i,0,n)
-const int inf = 1e9+7;
-const ll longinf = 1LL<<60;
-const ll mod = 1e9+7;
+#include "header.hpp"
 
 /*
   素数か否か
 */
 bool is_prime(const unsigned n) {
+  switch(n) {
+  case 0:
+  case 1: return false;
+  case 2:
+  case 3: return true;
+  }
+  if(n % 2 == 0) return false;
+  if(n % 3 == 0) return false;
+  if(n % 6 != 1 && n % 6 != 5) return false;
+  for(unsigned i=5; i*i<=n; i+=6) {
+    if(n % i     == 0) return false;
+    if(n % (i+2) == 0) return false;
+  }
+  return true;
+}
+bool is_prime_desc(const unsigned n) {
   switch(n) {
   case 0: // fall-through
   case 1: return false;

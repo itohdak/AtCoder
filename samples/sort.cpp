@@ -1,12 +1,4 @@
-#include <iostream>
-#include <cstdlib>
-#include <algorithm>
-#include <cmath>
-#include <vector>
-#include <numeric> // accumulate(v.begin(), v.end(), 0)
-
-using namespace std;
-#define ll long long
+#include "header.hpp"
 
 bool comp(int i, int j){
   // return i <= j;

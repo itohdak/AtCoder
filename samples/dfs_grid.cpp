@@ -1,8 +1,4 @@
-#include <iostream>
-#include <string>
-#include <deque>
-
-using namespace std;
+#include "header.hpp"
 
 #define MAX_N 500
 int C[MAX_N][MAX_N];
