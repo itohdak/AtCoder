@@ -1,3 +1,5 @@
+# <span style="color: red; ">\*\*\* Moved to <a href="https://github.com/itohdak/Competitive_Programming.git" style="color:#FF0000"><b>itohdak/Competitive_Programming</b></a> \*\*\*</span>
+
 # Sources for AtCoder programming contests
 ## Links
 - [AtCoder Home](https://atcoder.jp/?lang=ja "AtCoder Home")
